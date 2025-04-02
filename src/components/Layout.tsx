@@ -33,7 +33,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <header className="border-b bg-white">
         <div className="container mx-auto flex justify-between items-center p-4">
           <Link to="/" className="flex items-center">
-            <img src="/logo.png" alt="mk.dovito.com" className="h-8" />
+            <img src="/lovable-uploads/7a9c88d6-ba2f-4247-89c5-ae6e8fc600d9.png" alt="mk.dovito.com" className="h-8" />
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
