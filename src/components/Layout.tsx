@@ -32,11 +32,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="min-h-screen flex flex-col">
       <header className="border-b bg-white">
         <div className="container mx-auto flex justify-between items-center p-4">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md gradient-bg flex items-center justify-center">
-              <FileText className="text-white h-5 w-5" />
-            </div>
-            <h1 className="text-xl font-bold gradient-text">BrandBriefGenerator</h1>
+          <Link to="/" className="flex items-center">
+            <img src="/logo.png" alt="mk.dovito.com" className="h-8" />
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
