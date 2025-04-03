@@ -16,26 +16,26 @@ const ThemeToggle = ({ collapsed = false }: ThemeToggleProps) => {
     return (
       <button 
         onClick={toggleTheme}
-        className="p-2 rounded-full bg-gradient-to-r from-brand-blue/10 to-brand-purple/10 dark:from-brand-blue/20 dark:to-brand-purple/20 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-sm transition-all hover:shadow-md flex items-center justify-center"
+        className="p-2 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/20 dark:to-purple-900/20 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-sm transition-all hover:shadow"
       >
         {isDark ? (
-          <Moon className="h-4 w-4 text-brand-purple" />
+          <Moon className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
         ) : (
-          <Sun className="h-4 w-4 text-brand-blue" />
+          <Sun className="h-4 w-4 text-indigo-600" />
         )}
       </button>
     );
   }
   
   return (
-    <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-brand-blue/10 to-brand-purple/10 dark:from-brand-blue/20 dark:to-brand-purple/20 backdrop-blur-md rounded-full border border-white/20 dark:border-gray-700/30 shadow-sm">
-      <Sun className={`h-4 w-4 ${isDark ? 'text-brand-blue/70' : 'text-brand-blue'}`} />
+    <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/20 dark:to-purple-900/20 backdrop-blur-md rounded-full border border-white/20 dark:border-gray-700/30 shadow-sm">
+      <Sun className={`h-4 w-4 ${isDark ? 'text-indigo-400/70' : 'text-indigo-600'}`} />
       <Switch 
         checked={isDark}
         onCheckedChange={toggleTheme}
-        className="data-[state=checked]:bg-brand-purple data-[state=unchecked]:bg-brand-blue/70"
+        className="data-[state=checked]:bg-indigo-500 data-[state=unchecked]:bg-indigo-300/70"
       />
-      <Moon className={`h-4 w-4 ${isDark ? 'text-brand-purple' : 'text-brand-purple/70'}`} />
+      <Moon className={`h-4 w-4 ${isDark ? 'text-indigo-400' : 'text-indigo-600/70'}`} />
     </div>
   );
 };

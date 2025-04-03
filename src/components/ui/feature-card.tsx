@@ -25,25 +25,22 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   return (
     <Link to={to}>
       <Card className={cn(
-        "glass-card overflow-hidden transition-all hover:shadow-lg border-transparent h-full flex flex-col hover:-translate-y-1", 
+        "stripe-card h-full flex flex-col", 
         gradient && "gradient-border",
         className
       )}>
         <CardContent className="p-6 flex-1">
-          <div className={cn(
-            "w-14 h-14 rounded-full flex items-center justify-center mb-4", 
-            gradient ? "bg-brand-softPurple" : "bg-gradient-to-br from-brand-blue/10 to-brand-purple/10"
-          )}>
+          <div className="w-14 h-14 rounded-full stripe-icon-bg flex items-center justify-center mb-4">
             {React.cloneElement(icon as React.ReactElement, {
-              className: gradient ? "text-brand-purple h-6 w-6" : "text-brand-purple h-6 w-6"
+              className: "text-indigo-600 h-6 w-6"
             })}
           </div>
           <h3 className="text-xl font-semibold mb-2">{title}</h3>
           <p className="text-muted-foreground">{description}</p>
         </CardContent>
         <CardFooter className="p-6 pt-0">
-          <Button variant="ghost" className="hover:bg-brand-softPurple/20 text-brand-purple px-0">
-            Explore {title} <span className="ml-2 text-lg">→</span>
+          <Button variant="link" className="px-0 text-indigo-600">
+            Explore {title} <span className="ml-1">→</span>
           </Button>
         </CardFooter>
       </Card>

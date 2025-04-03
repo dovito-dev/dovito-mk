@@ -18,12 +18,12 @@ const Index = () => {
           </p>
           <div className="mt-8 flex gap-4 justify-center">
             <Link to="/create">
-              <Button size="lg" className="bg-gradient-to-r from-brand-blue to-brand-purple hover:from-brand-blue/90 hover:to-brand-purple/90">
+              <Button variant="stripe-primary" size="lg" className="rounded-full">
                 Create Your Brief
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button size="lg" variant="outline" className="border-brand-blue/30 hover:border-brand-purple/50">
+              <Button variant="stripe-outline" size="lg" className="rounded-full">
                 View Examples
               </Button>
             </Link>
@@ -31,7 +31,7 @@ const Index = () => {
         </div>
 
         {/* Feature Showcase */}
-        <div className="border rounded-xl p-8 shadow-sm bg-white animate-fade-in gradient-border" style={{ animationDelay: '0.2s' }}>
+        <div className="stripe-card p-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
             <p className="text-muted-foreground">Three simple steps to your comprehensive brand brief</p>
@@ -75,32 +75,32 @@ const Index = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
-            <Users className="h-10 w-10 text-brand-blue mb-4" />
+          <div className="stripe-card p-6 hover:shadow-md transition-all">
+            <Users className="h-10 w-10 text-indigo-500 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Target Audience Insights</h3>
             <p className="text-muted-foreground">
               Identify your ideal customers and understand their needs, preferences, and pain points.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
-            <Target className="h-10 w-10 text-brand-purple mb-4" />
+          <div className="stripe-card p-6 hover:shadow-md transition-all">
+            <Target className="h-10 w-10 text-indigo-500 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Positioning</h3>
             <p className="text-muted-foreground">
               Define how your brand differs from competitors and resonates with your audience.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
-            <BarChart className="h-10 w-10 text-brand-lightBlue mb-4" />
+          <div className="stripe-card p-6 hover:shadow-md transition-all">
+            <BarChart className="h-10 w-10 text-indigo-500 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Competitive Analysis</h3>
             <p className="text-muted-foreground">
               Get insights on your industry landscape and how to stand out from competitors.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
-            <FileText className="h-10 w-10 text-brand-pink mb-4" />
+          <div className="stripe-card p-6 hover:shadow-md transition-all">
+            <FileText className="h-10 w-10 text-indigo-500 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Voice & Values</h3>
             <p className="text-muted-foreground">
               Establish a consistent communication style and core values that represent your brand.
@@ -111,13 +111,13 @@ const Index = () => {
 
       {/* CTA Section */}
       <section className="py-12 md:py-20">
-        <div className="bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl p-10 text-white text-center">
+        <div className="rounded-xl p-10 bg-gradient-to-r from-indigo-500/10 to-purple-500/20 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Define Your Brand?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-700">
             Join hundreds of businesses who've clarified their brand identity with our tool.
           </p>
           <Link to="/create">
-            <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100">
+            <Button variant="stripe-primary" size="lg" className="rounded-full">
               Generate Your Brief Now
             </Button>
           </Link>

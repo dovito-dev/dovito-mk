@@ -14,17 +14,17 @@ const SidebarToggle = ({ collapsed, toggleCollapsed }: SidebarToggleProps) => {
       variant="ghost" 
       size="icon" 
       onClick={toggleCollapsed} 
-      className="rounded-full hover:bg-gradient-to-r hover:from-brand-blue/10 hover:to-brand-purple/10 dark:hover:from-brand-blue/20 dark:hover:to-brand-purple/20 transition-colors"
+      className="rounded-full hover:bg-gradient-to-r hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-900/20 dark:hover:to-purple-900/20 transition-colors"
     >
       <span className="sr-only">
         {collapsed ? "Expand sidebar" : "Collapse sidebar"}
       </span>
       {collapsed ? (
-        <div className="text-brand-blue/80 dark:text-brand-blue">
+        <div className="text-indigo-500/80 dark:text-indigo-400">
           <PanelRight className="h-5 w-5" />
         </div>
       ) : (
-        <div className="text-brand-purple dark:text-brand-purple/80">
+        <div className="text-indigo-600 dark:text-indigo-400/80">
           <PanelLeftClose className="h-5 w-5" />
         </div>
       )}
