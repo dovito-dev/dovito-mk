@@ -62,7 +62,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isBrandBriefsOpen, setBrandBriefsOpen] = React.useState(
     location.pathname.startsWith('/brand-briefs') || 
     location.pathname === '/create' || 
-    location.pathname === '/dashboard'
+    location.pathname === '/dashboard' ||
+    location.pathname.startsWith('/brief/')
   );
   
   const [isEmailsOpen, setEmailsOpen] = React.useState(
@@ -76,7 +77,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const isBrandBriefsActive = 
     location.pathname.startsWith('/brand-briefs') || 
     location.pathname === '/create' || 
-    location.pathname === '/dashboard';
+    location.pathname === '/dashboard' ||
+    location.pathname.startsWith('/brief/');
     
   const isEmailsActive = 
     location.pathname === '/email-copywriter' || 
@@ -120,8 +122,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
       </header>
       
-      <div className="flex flex-1">
-        <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-muted dark:bg-gray-800 dark:border-gray-700 p-4 hidden md:block flex flex-col`}>
+      <div className="flex flex-1 overflow-hidden">
+        <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-muted dark:bg-gray-800 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 overflow-y-auto h-[calc(100vh-4rem)]`}>
           <div className="flex justify-end mb-2">
             <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
           </div>
@@ -310,7 +312,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </nav>
         </aside>
         
-        <main className="flex-1 p-6 dark:bg-gray-900 dark:text-gray-100">
+        <main className="flex-1 p-6 dark:bg-gray-900 dark:text-gray-100 overflow-y-auto">
           {children}
         </main>
       </div>

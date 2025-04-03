@@ -58,7 +58,7 @@ const BriefDetail = () => {
 
   return (
     <SubscriptionGate allowFreeTier={true}>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto pb-8 overflow-y-auto">
         <div className="mb-6">
           <Link to="/dashboard" className="text-muted-foreground hover:text-primary inline-flex items-center">
             <ArrowLeft className="h-4 w-4 mr-1" />
