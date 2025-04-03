@@ -25,7 +25,7 @@ const FreemiumPaywall: React.FC = () => {
           <p className="mb-4">
             Upgrade to our premium plan to create unlimited brand briefs and access all features.
           </p>
-          <div className="flex items-center justify-center gap-2 text-amber-600 bg-amber-50 p-3 rounded-md mb-4">
+          <div className="flex items-center justify-center gap-2 text-amber-600 bg-amber-50 p-3 rounded-md mb-4 dark:text-amber-300 dark:bg-amber-900/30">
             <LockKeyhole className="h-5 w-5" />
             <span>Upgrade now to continue creating brand briefs</span>
           </div>

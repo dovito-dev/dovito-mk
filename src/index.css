@@ -49,39 +49,39 @@
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 3.9%;
+    --card: 223 20% 11%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 3.9%;
+    --popover: 223 20% 11%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 83%;
-    --primary-foreground: 240 5% 34%;
+    --primary: 210 80% 80%;
+    --primary-foreground: 223 20% 11%;
 
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 219 20% 18%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 219 20% 18%;
+    --muted-foreground: 240 5% 74.9%;
 
-    --accent: 240 3.7% 15.9%;
+    --accent: 219 20% 18%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 219 20% 18%;
+    --input: 219 20% 18%;
+    --ring: 210 80% 80%;
 
-    --sidebar-background: 240 10% 3.9%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 0 0% 83%;
-    --sidebar-primary-foreground: 240 5% 34%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 240 4.9% 83.9%;
+    --sidebar-background: 223 20% 11%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 210 80% 80%;
+    --sidebar-primary-foreground: 223 20% 11%;
+    --sidebar-accent: 219 20% 18%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 219 20% 18%;
+    --sidebar-ring: 210 80% 80%;
   }
 }
 
@@ -136,7 +136,7 @@
 }
 
 .glass-card {
-  @apply bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-gray-100/40;
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.04)] border border-gray-100/40 dark:bg-gray-800/95 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] dark:border-gray-700/40;
 }
 
 .feature-icon-bg {
@@ -152,7 +152,7 @@
 }
 
 .stripe-card {
-  @apply bg-white rounded-xl shadow-sm border border-gray-100/60 overflow-hidden hover:shadow-md transition-shadow duration-300;
+  @apply bg-white rounded-xl shadow-sm border border-gray-100/60 overflow-hidden hover:shadow-md transition-shadow duration-300 dark:bg-gray-800/95 dark:border-gray-700/40 dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)];
 }
 
 .stripe-button {
@@ -161,9 +161,15 @@
 }
 
 .stripe-button-outline {
-  @apply text-indigo-600 border border-indigo-200 hover:border-indigo-300 bg-white hover:bg-indigo-50/50 transition-colors duration-300;
+  @apply text-indigo-600 border border-indigo-200 hover:border-indigo-300 bg-white hover:bg-indigo-50/50 transition-colors duration-300 dark:text-blue-300 dark:border-blue-800 dark:bg-gray-800 dark:hover:bg-gray-700/50;
 }
 
 .stripe-icon-bg {
-  @apply bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-600;
+  @apply bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-600 dark:from-indigo-900/30 dark:to-purple-900/30 dark:text-blue-300;
+}
+
+/* Card styles for dark mode */
+.dark .card, 
+.dark .ui-card {
+  @apply shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-sm border-gray-700/60;
 }
