@@ -70,10 +70,10 @@ const EmailCopywriter = () => {
             <label htmlFor="purpose" className="block font-medium mb-2">Email Purpose</label>
             <Select onOpenChange={setOpen}>
               <SelectTrigger 
-                className={`w-full border-2 ${open ? 'border-primary ring-2 ring-primary/20' : 'border-input'} bg-gradient-to-r from-brand-blue to-brand-purple text-white font-medium shadow-md transition-all duration-200 hover:shadow-lg`}
+                className={`w-full ${open ? 'border-primary ring-2 ring-primary/20 bg-background' : 'border-input bg-background'} transition-all duration-200`}
               >
                 <SelectValue placeholder="Select purpose..." />
-                <ChevronDown className={`ml-2 h-5 w-5 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`ml-2 h-5 w-5 shrink-0 transition-transform duration-200 ${open ? 'rotate-180 text-primary' : ''}`} />
               </SelectTrigger>
               <SelectContent className="bg-white/95 backdrop-blur-sm border border-primary/20 shadow-xl rounded-lg p-1 animate-fade-in">
                 <div className="p-2 bg-gradient-to-r from-brand-blue/10 to-brand-purple/10 rounded-md mb-2">
