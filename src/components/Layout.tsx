@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
+import DevModeToggle from './DevModeToggle';
 
 type NavItemProps = {
   to: string;
@@ -78,6 +79,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex flex-col">
+      <DevModeToggle />
       <header className="border-b bg-white">
         <div className="container mx-auto flex justify-between items-center p-4">
           <Link to="/" className="flex items-center">

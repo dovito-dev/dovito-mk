@@ -1,53 +1,15 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, Star, CreditCard } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-
-// Simulated auth & subscription state with toggle
-const useAuthStatus = () => {
-  const [isPaying, setIsPaying] = useState(false);
-  
-  return { 
-    isSignedIn: true, // Always signed in for development
-    isPaying,
-    setIsPaying
-  };
-};
+import { Check, Star } from 'lucide-react';
+import { useSubscription } from '@/context/SubscriptionContext';
 
 const GetStarted: React.FC = () => {
-  const { isSignedIn, isPaying, setIsPaying } = useAuthStatus();
+  const { isPaying } = useSubscription();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   
   return (
     <div className="container mx-auto px-4 py-6">
-      {/* Developer toggle for subscription status */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <CreditCard className="h-5 w-5 text-yellow-600" />
-            <div>
-              <p className="font-medium text-yellow-800">Developer Mode</p>
-              <p className="text-sm text-yellow-700">
-                This toggle will be removed in production
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch 
-              id="subscription-mode" 
-              checked={isPaying}
-              onCheckedChange={setIsPaying}
-            />
-            <Label htmlFor="subscription-mode" className="font-medium">
-              {isPaying ? "Paying Member" : "Free User"}
-            </Label>
-          </div>
-        </div>
-      </div>
-
       {isPaying ? (
         <OnboardingGuide />
       ) : (

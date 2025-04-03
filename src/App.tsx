@@ -18,6 +18,7 @@ import BriefDetail from "./pages/BriefDetail";
 import GetStarted from "./pages/GetStarted";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import { SubscriptionProvider } from "./context/SubscriptionContext";
 
 const queryClient = new QueryClient();
 
@@ -26,23 +27,25 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/brand-briefs" element={<Layout><BrandBriefs /></Layout>} />
-          <Route path="/email-copywriter" element={<Layout><EmailCopywriter /></Layout>} />
-          <Route path="/generated-emails" element={<Layout><GeneratedEmails /></Layout>} />
-          <Route path="/email/:id" element={<Layout><EmailDetail /></Layout>} />
-          <Route path="/agent-voice" element={<Layout><AgentVoice /></Layout>} />
-          <Route path="/social-media" element={<Layout><SocialMedia /></Layout>} />
-          <Route path="/create" element={<Layout><CreateBrief /></Layout>} />
-          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-          <Route path="/brief/:id" element={<Layout><BriefDetail /></Layout>} />
-          <Route path="/get-started" element={<Layout><GetStarted /></Layout>} />
-          <Route path="/settings" element={<Layout><Settings /></Layout>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <SubscriptionProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/brand-briefs" element={<Layout><BrandBriefs /></Layout>} />
+            <Route path="/email-copywriter" element={<Layout><EmailCopywriter /></Layout>} />
+            <Route path="/generated-emails" element={<Layout><GeneratedEmails /></Layout>} />
+            <Route path="/email/:id" element={<Layout><EmailDetail /></Layout>} />
+            <Route path="/agent-voice" element={<Layout><AgentVoice /></Layout>} />
+            <Route path="/social-media" element={<Layout><SocialMedia /></Layout>} />
+            <Route path="/create" element={<Layout><CreateBrief /></Layout>} />
+            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/brief/:id" element={<Layout><BriefDetail /></Layout>} />
+            <Route path="/get-started" element={<Layout><GetStarted /></Layout>} />
+            <Route path="/settings" element={<Layout><Settings /></Layout>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </SubscriptionProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

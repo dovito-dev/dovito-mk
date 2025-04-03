@@ -1,291 +1,121 @@
 import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import SubscriptionGate from '@/components/SubscriptionGate';
+import { useParams, Link } from 'react-router-dom';
+import { useBriefStore } from '@/store/briefStore';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { useBrandBriefStore } from '@/store/brandBriefStore';
-import { formatDistanceToNow } from 'date-fns';
-import { ArrowLeft, Clock, CheckCircle, Globe, File, Users, Target, BarChart, FileText } from 'lucide-react';
-
-const ColorPalette = ({ colors }: { colors: string[] }) => {
-  return (
-    <div className="flex flex-wrap gap-2 mt-2">
-      {colors.map((color, index) => (
-        <div key={index} className="flex flex-col items-center">
-          <div 
-            className="w-12 h-12 rounded-lg border shadow-sm"
-            style={{ backgroundColor: color }}
-          />
-          <span className="text-xs mt-1">{color}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { ArrowLeft, Copy, FileText, Clock, Download } from 'lucide-react';
+import { format } from 'date-fns';
+import { useToast } from "@/hooks/use-toast";
 
 const BriefDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const { getBrief } = useBrandBriefStore();
-  
+  const { getBrief } = useBriefStore();
   const brief = getBrief(id || '');
-  
+  const { toast } = useToast();
+  const [copying, setCopying] = React.useState(false);
+
   if (!brief) {
     return (
-      <div className="max-w-3xl mx-auto text-center py-16">
-        <h2 className="text-2xl font-bold mb-4">Brief Not Found</h2>
-        <p className="text-muted-foreground mb-8">
-          The brand brief you're looking for doesn't exist or has been removed.
-        </p>
-        <Button onClick={() => navigate('/dashboard')}>
-          Back to Dashboard
-        </Button>
+      <div className="max-w-4xl mx-auto text-center py-20">
+        <h2 className="text-2xl font-bold mb-4">Brief not found</h2>
+        <Link to="/dashboard">
+          <Button variant="outline">Back to Briefs</Button>
+        </Link>
       </div>
     );
   }
-  
-  const formatDate = (dateString: string) => {
-    return formatDistanceToNow(new Date(dateString), { addSuffix: true });
+
+  const copyBriefContent = async () => {
+    try {
+      setCopying(true);
+      await navigator.clipboard.writeText(brief.content);
+      toast({
+        title: "Copied to clipboard",
+        description: "The brief content has been copied to your clipboard.",
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to copy",
+        description: "There was an error copying the text. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setCopying(false);
+    }
   };
-  
+
+  const downloadBrief = () => {
+    const element = document.createElement("a");
+    const file = new Blob([brief.content], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = `${brief.title.replace(/\s+/g, '-').toLowerCase()}-brief.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <Button 
-          variant="ghost" 
-          className="mb-4" 
-          onClick={() => navigate('/dashboard')}
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Dashboard
-        </Button>
-        
-        <div className="flex justify-between items-start mb-2">
-          <div>
-            <h1 className="text-3xl font-bold gradient-text">{brief.companyName}</h1>
-            <div className="flex items-center gap-2 mt-1">
-              <Globe className="h-4 w-4 text-muted-foreground" />
-              <a 
-                href={brief.website.startsWith('http') ? brief.website : `https://${brief.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary hover:underline"
-              >
-                {brief.website}
-              </a>
-            </div>
-          </div>
-          <Badge variant={brief.status === 'completed' ? 'default' : 'outline'}>
-            {brief.status === 'completed' ? (
-              <div className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3" />
-                <span>Completed</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
-                <span>Pending</span>
-              </div>
-            )}
-          </Badge>
+    <SubscriptionGate>
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-6">
+          <Link to="/dashboard" className="text-muted-foreground hover:text-primary inline-flex items-center">
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to briefs
+          </Link>
         </div>
-        
-        <p className="text-sm text-muted-foreground">
-          Created {formatDate(brief.createdAt)}
-        </p>
-      </div>
-      
-      {brief.status === 'pending' ? (
-        <Card className="animate-pulse border p-8">
-          <div className="text-center py-12">
-            <Clock className="mx-auto h-12 w-12 text-muted-foreground opacity-50 mb-4" />
-            <h3 className="text-lg font-medium mb-2">Brief generation in progress</h3>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              We're currently analyzing your company's website and generating your comprehensive brand brief. This usually takes a few minutes.
-            </p>
-            <Button 
-              onClick={() => navigate('/dashboard')}
-              variant="outline"
-            >
-              Back to Dashboard
-            </Button>
+
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">{brief.title}</h1>
+          <div className="text-sm text-muted-foreground flex items-center">
+            <Clock className="h-4 w-4 mr-1" />
+            {format(new Date(brief.createdAt), 'MMM d, yyyy')}
           </div>
-        </Card>
-      ) : (
-        <div className="space-y-8 animate-fade-up">
-          <Tabs defaultValue="summary" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
-              <TabsTrigger value="summary">Summary</TabsTrigger>
-              <TabsTrigger value="audience">Audience & Positioning</TabsTrigger>
-              <TabsTrigger value="brand">Brand Identity</TabsTrigger>
-              <TabsTrigger value="competitive">Competitive Analysis</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="summary" className="animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Brand Brief Summary</CardTitle>
-                  <CardDescription>
-                    Overall findings and recommendations for {brief.companyName}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <h3 className="font-semibold flex items-center gap-2">
-                        <Target className="h-5 w-5 text-brand-blue" />
-                        Brand Positioning
-                      </h3>
-                      <p>{brief.briefData?.brandPositioning}</p>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <h3 className="font-semibold flex items-center gap-2">
-                        <Users className="h-5 w-5 text-brand-purple" />
-                        Target Audience
-                      </h3>
-                      <p>{brief.briefData?.targetAudience}</p>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <h3 className="font-semibold flex items-center gap-2">
-                        <FileText className="h-5 w-5 text-brand-lightBlue" />
-                        Brand Voice
-                      </h3>
-                      <p>{brief.briefData?.brandVoice}</p>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <h3 className="font-semibold flex items-center gap-2">
-                        <BarChart className="h-5 w-5 text-brand-pink" />
-                        Competitive Edge
-                      </h3>
-                      <p>{brief.briefData?.competitiveAnalysis}</p>
-                    </div>
-                  </div>
-                  
-                  <Separator />
-                  
-                  <div>
-                    <h3 className="font-semibold mb-3">Brand Values</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {brief.briefData?.brandValues?.map((value, index) => (
-                        <Badge key={index} variant="secondary" className="px-3 py-1">
-                          {value}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-semibold mb-3">Color Palette</h3>
-                    <ColorPalette colors={brief.briefData?.colorPalette || []} />
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="audience" className="space-y-4 animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-brand-purple" />
-                    Target Audience
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="leading-relaxed">{brief.briefData?.targetAudience}</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="h-5 w-5 text-brand-blue" />
-                    Brand Positioning
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="leading-relaxed">{brief.briefData?.brandPositioning}</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="brand" className="space-y-4 animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-brand-lightBlue" />
-                    Brand Voice
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="leading-relaxed">{brief.briefData?.brandVoice}</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Brand Values</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {brief.briefData?.brandValues?.map((value, index) => (
-                      <Badge key={index} variant="outline" className="px-3 py-1 text-base">
-                        {value}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Color Palette</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ColorPalette colors={brief.briefData?.colorPalette || []} />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="competitive" className="animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BarChart className="h-5 w-5 text-brand-pink" />
-                    Competitive Analysis
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="leading-relaxed">{brief.briefData?.competitiveAnalysis}</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+        </div>
+
+        <div className="mb-6 flex flex-wrap gap-2">
+          <Button 
+            onClick={copyBriefContent} 
+            variant="outline" 
+            className="flex items-center gap-2"
+            disabled={copying}
+          >
+            <Copy className="h-4 w-4" />
+            {copying ? "Copying..." : "Copy Brief"}
+          </Button>
           
-          <div className="flex justify-center">
-            <Button variant="outline" className="mr-2" onClick={() => window.print()}>
-              <File className="mr-2 h-4 w-4" />
-              Export as PDF
-            </Button>
-            <Link to="/create">
-              <Button className="gradient-bg">
-                Create Another Brief
-              </Button>
-            </Link>
-          </div>
+          <Button 
+            onClick={downloadBrief} 
+            variant="outline" 
+            className="flex items-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Download Brief
+          </Button>
         </div>
-      )}
-    </div>
+
+        <Card className="mb-8">
+          <CardHeader className="pb-0">
+            <div className="flex justify-between">
+              <div>
+                <p className="text-sm font-medium">Brand: {brief.brandName}</p>
+                <p className="text-sm text-muted-foreground">{brief.industry}</p>
+              </div>
+              <div>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                  {brief.type}
+                </span>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <div className="prose max-w-none whitespace-pre-line">
+              {brief.content}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </SubscriptionGate>
   );
 };
 

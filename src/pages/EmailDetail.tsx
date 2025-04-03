@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useEmailStore } from '@/store/emailStore';
@@ -7,6 +6,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, Copy, Mail as MailIcon, Clock, ExternalLink } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
+import SubscriptionGate from '@/components/SubscriptionGate';
 
 const EmailDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,73 +60,75 @@ const EmailDetail = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-6">
-        <Link to="/generated-emails" className="text-muted-foreground hover:text-primary inline-flex items-center">
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          Back to emails
-        </Link>
-      </div>
-
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">{email.title}</h1>
-        <div className="text-sm text-muted-foreground flex items-center">
-          <Clock className="h-4 w-4 mr-1" />
-          {format(new Date(email.createdAt), 'MMM d, yyyy')}
+    <SubscriptionGate>
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-6">
+          <Link to="/generated-emails" className="text-muted-foreground hover:text-primary inline-flex items-center">
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to emails
+          </Link>
         </div>
-      </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        <Button 
-          onClick={copyEmailContent} 
-          variant="outline" 
-          className="flex items-center gap-2"
-          disabled={copying}
-        >
-          <Copy className="h-4 w-4" />
-          {copying ? "Copying..." : "Copy Email"}
-        </Button>
-        
-        <Button 
-          onClick={openInGmail} 
-          variant="outline" 
-          className="flex items-center gap-2"
-        >
-          <MailIcon className="h-4 w-4" />
-          Open in Gmail
-        </Button>
-        
-        <Button 
-          onClick={openInOutlook} 
-          variant="outline" 
-          className="flex items-center gap-2"
-        >
-          <ExternalLink className="h-4 w-4" />
-          Open in Outlook
-        </Button>
-      </div>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">{email.title}</h1>
+          <div className="text-sm text-muted-foreground flex items-center">
+            <Clock className="h-4 w-4 mr-1" />
+            {format(new Date(email.createdAt), 'MMM d, yyyy')}
+          </div>
+        </div>
 
-      <Card className="mb-8">
-        <CardHeader className="pb-0">
-          <div className="flex justify-between">
-            <div>
-              <p className="text-sm font-medium">To: {email.recipient.name}</p>
-              <p className="text-sm text-muted-foreground">{email.recipient.email}</p>
+        <div className="mb-6 flex flex-wrap gap-2">
+          <Button 
+            onClick={copyEmailContent} 
+            variant="outline" 
+            className="flex items-center gap-2"
+            disabled={copying}
+          >
+            <Copy className="h-4 w-4" />
+            {copying ? "Copying..." : "Copy Email"}
+          </Button>
+          
+          <Button 
+            onClick={openInGmail} 
+            variant="outline" 
+            className="flex items-center gap-2"
+          >
+            <MailIcon className="h-4 w-4" />
+            Open in Gmail
+          </Button>
+          
+          <Button 
+            onClick={openInOutlook} 
+            variant="outline" 
+            className="flex items-center gap-2"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Open in Outlook
+          </Button>
+        </div>
+
+        <Card className="mb-8">
+          <CardHeader className="pb-0">
+            <div className="flex justify-between">
+              <div>
+                <p className="text-sm font-medium">To: {email.recipient.name}</p>
+                <p className="text-sm text-muted-foreground">{email.recipient.email}</p>
+              </div>
+              <div>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                  {email.purpose.charAt(0).toUpperCase() + email.purpose.slice(1).replace('-', ' ')}
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                {email.purpose.charAt(0).toUpperCase() + email.purpose.slice(1).replace('-', ' ')}
-              </span>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <div className="prose max-w-none whitespace-pre-line">
+              {email.content}
             </div>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <div className="prose max-w-none whitespace-pre-line">
-            {email.content}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </div>
+    </SubscriptionGate>
   );
 };
 
