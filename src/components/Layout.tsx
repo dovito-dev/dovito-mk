@@ -47,7 +47,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <DevModeToggle />
       <Navbar location={location} />
       
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-1 overflow-hidden">
         <SidebarMenu 
           location={location}
           sidebarCollapsed={sidebarCollapsed}

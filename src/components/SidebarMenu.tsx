@@ -33,7 +33,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   isEmailsActive
 }) => {
   return (
-    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 backdrop-blur-md shadow-sm sticky top-[60px] h-[calc(100vh-60px)]`}>
+    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 backdrop-blur-md shadow-sm`}>
       <div className="flex justify-end mb-2">
         <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
       </div>
@@ -217,7 +217,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         </div>
         
         {/* Settings and Theme Toggle at the bottom with increased padding */}
-        <div className="mt-auto pb-4">
+        <div className="mt-auto pb-12">
           <NavItem 
             to="/settings"
             icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
