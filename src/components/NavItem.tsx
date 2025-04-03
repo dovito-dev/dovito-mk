@@ -58,11 +58,10 @@ const NavItem: React.FC<NavItemProps> = ({
     return (
       <Button
         variant="ghost"
-        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
+        className={`w-full flex justify-center items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
         onClick={handleClick}
       >
         {icon}
-        {!collapsed && <span>{label}</span>}
       </Button>
     );
   }
@@ -71,7 +70,7 @@ const NavItem: React.FC<NavItemProps> = ({
     <Link to={to}>
       <Button
         variant="ghost"
-        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
+        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} items-center gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
       >
         {icon}
         {!collapsed && <span>{label}</span>}
