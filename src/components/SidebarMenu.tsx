@@ -2,10 +2,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
+import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings, CreditCard } from 'lucide-react';
 import SidebarToggle from './SidebarToggle';
 import ThemeToggle from './ThemeToggle';
 import NavItem from './NavItem';
+import DevModeToggle from './DevModeToggle';
+import { useSubscription } from '@/context/SubscriptionContext';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 
 type SidebarMenuProps = {
   location: {
@@ -32,6 +36,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   isBrandBriefsActive,
   isEmailsActive
 }) => {
+  const { isPaying, setIsPaying } = useSubscription();
+
   return (
     <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:flex md:flex-col fixed h-full top-0 pt-[64px]`}>
       <div className="flex justify-end mb-2">
@@ -221,6 +227,33 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       
       {/* Settings and Theme Toggle fixed at the bottom */}
       <div className="mt-auto border-t pt-4 dark:border-gray-700/50">
+        {/* Developer Mode Toggle */}
+        <div className={`mb-4 ${!sidebarCollapsed ? 'px-2' : 'flex justify-center'}`}>
+          {!sidebarCollapsed ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-yellow-600" />
+                <span className="text-xs font-medium text-yellow-800">Developer Mode</span>
+              </div>
+              <Switch 
+                id="subscription-mode" 
+                checked={isPaying}
+                onCheckedChange={setIsPaying}
+                className="data-[state=checked]:bg-yellow-600"
+              />
+            </div>
+          ) : (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-yellow-600"
+              onClick={() => toggleSidebar()}
+            >
+              <CreditCard className="h-5 w-5" />
+            </Button>
+          )}
+        </div>
+
         <NavItem 
           to="/settings"
           icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}

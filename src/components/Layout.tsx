@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
-import DevModeToggle from './DevModeToggle';
 import ThemeToggle from './ThemeToggle';
 import SidebarToggle from './SidebarToggle';
 import Navbar from './Navbar';
@@ -44,7 +43,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-brand-lightPurple/50">
-      <DevModeToggle />
       <div className="flex flex-col h-screen">
         {/* Fixed Navbar at the top */}
         <div className="sticky top-0 z-40 w-full">
