@@ -163,30 +163,3 @@
 .stripe-icon-bg {
   @apply bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-600;
 }
-
-/* Hero section gradients */
-.hero-gradient {
-  background-color: #f8f9fa;
-  position: relative;
-}
-
-.dark .hero-gradient {
-  background-color: #121212;
-}
-
-/* Animation for the hero blur effect */
-@keyframes move {
-  0% {
-    transform: translate(0) rotate(0deg);
-  }
-  50% {
-    transform: translate(5%, 5%) rotate(5deg);
-  }
-  100% {
-    transform: translate(0) rotate(0deg);
-  }
-}
-
-.hero-gradient .absolute {
-  animation: move 20s ease-in-out infinite;
-}

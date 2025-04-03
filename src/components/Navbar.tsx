@@ -10,8 +10,6 @@ type NavbarProps = {
 };
 
 const Navbar: React.FC<NavbarProps> = ({ location }) => {
-  const isHomePage = location.pathname === '/';
-  
   const isBrandBriefsActive = 
     location.pathname.startsWith('/brand-briefs') || 
     location.pathname === '/create' || 
@@ -24,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
     location.pathname.startsWith('/email/');
 
   return (
-    <header className={`border-b border-transparent ${isHomePage ? 'bg-transparent absolute w-full z-50' : 'bg-white/70 backdrop-blur-sm dark:bg-gray-900/70 dark:border-gray-800/30 shadow-lg border-white/20'}`}>
+    <header className="border-b border-white/20 bg-white/70 backdrop-blur-sm dark:bg-gray-900/70 dark:border-gray-800/30 shadow-lg">
       <div className="flex justify-between items-center px-6 py-3">
         <Link to="/" className="flex items-center">
           <img src="/lovable-uploads/7a9c88d6-ba2f-4247-89c5-ae6e8fc600d9.png" alt="mk.dovito.com" className="h-8" />
@@ -48,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
             </Link>
           </nav>
           <Link to="/get-started">
-            <Button size="sm" className={`ml-4 ${isHomePage ? 'bg-white text-primary hover:bg-white/90' : 'bg-secondary text-white hover:bg-secondary/80'} rounded-full px-6 shadow-sm hover:shadow-md`}>
+            <Button size="sm" className="ml-4 bg-secondary text-white hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md">
               Get Started
             </Button>
           </Link>
