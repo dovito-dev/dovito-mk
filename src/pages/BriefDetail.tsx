@@ -1,10 +1,11 @@
+
 import React from 'react';
 import SubscriptionGate from '@/components/SubscriptionGate';
 import { useParams, Link } from 'react-router-dom';
 import { useBriefStore } from '@/store/briefStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { ArrowLeft, Copy, FileText, Clock, Download } from 'lucide-react';
+import { ArrowLeft, Copy, Clock, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
 
