@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -22,7 +23,7 @@ const CreateBrief = () => {
   
   const [companyName, setCompanyName] = useState('');
   const [website, setWebsite] = useState('');
-  const [webhookUrl, setWebhookUrl] = useState('');
+  const [otherLinks, setOtherLinks] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,69 +50,23 @@ const CreateBrief = () => {
     setIsLoading(true);
     
     try {
-      // Add to local store
-      const briefId = addBrief(companyName, website);
+      // Add to local store with otherLinks included
+      const briefId = addBrief(companyName, website, otherLinks);
       
-      // If webhook URL is provided, send data to n8n
-      if (webhookUrl) {
-        try {
-          const response = await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            mode: 'no-cors',
-            body: JSON.stringify({
-              briefId,
-              companyName,
-              website,
-              timestamp: new Date().toISOString(),
-            }),
-          });
-          
-          // Since we're using no-cors mode
-          console.log('Webhook triggered successfully');
-          
-          // Generate mock data for the demo
-          setTimeout(() => {
-            // Update the brand brief with mock data
-            updateBrief(briefId, {
-              status: 'completed',
-              briefData: {
-                targetAudience: `${companyName} primarily serves small to medium businesses in the tech sector who need professional branding solutions.`,
-                brandVoice: `${companyName}'s voice is professional yet approachable, balancing expertise with clarity and warmth.`,
-                brandValues: ['Innovation', 'Reliability', 'Customer-centricity', 'Quality'],
-                colorPalette: ['#4361EE', '#7209B7', '#3A0CA3', '#F72585', '#4CC9F0'],
-                competitiveAnalysis: `${companyName} stands out in a crowded marketplace by offering more personalized service compared to larger agencies, while maintaining higher quality than freelance alternatives.`,
-                brandPositioning: `${companyName} positions itself as the ideal partner for growing businesses that need professional branding without the overhead of a large agency.`,
-              }
-            });
-          }, 3000);
-          
-        } catch (error) {
-          console.error('Error triggering webhook:', error);
-          toast({
-            title: 'Webhook Error',
-            description: 'Failed to trigger the generation process. Please try again.',
-            variant: 'destructive',
-          });
-        }
-      } else {
-        // For demo without webhook, just generate mock data after delay
-        setTimeout(() => {
-          updateBrief(briefId, {
-            status: 'completed',
-            briefData: {
-              targetAudience: `${companyName} primarily serves small to medium businesses in the tech sector who need professional branding solutions.`,
-              brandVoice: `${companyName}'s voice is professional yet approachable, balancing expertise with clarity and warmth.`,
-              brandValues: ['Innovation', 'Reliability', 'Customer-centricity', 'Quality'],
-              colorPalette: ['#4361EE', '#7209B7', '#3A0CA3', '#F72585', '#4CC9F0'],
-              competitiveAnalysis: `${companyName} stands out in a crowded marketplace by offering more personalized service compared to larger agencies, while maintaining higher quality than freelance alternatives.`,
-              brandPositioning: `${companyName} positions itself as the ideal partner for growing businesses that need professional branding without the overhead of a large agency.`,
-            }
-          });
-        }, 3000);
-      }
+      // For demo, just generate mock data after delay
+      setTimeout(() => {
+        updateBrief(briefId, {
+          status: 'completed',
+          briefData: {
+            targetAudience: `${companyName} primarily serves small to medium businesses in the tech sector who need professional branding solutions.`,
+            brandVoice: `${companyName}'s voice is professional yet approachable, balancing expertise with clarity and warmth.`,
+            brandValues: ['Innovation', 'Reliability', 'Customer-centricity', 'Quality'],
+            colorPalette: ['#4361EE', '#7209B7', '#3A0CA3', '#F72585', '#4CC9F0'],
+            competitiveAnalysis: `${companyName} stands out in a crowded marketplace by offering more personalized service compared to larger agencies, while maintaining higher quality than freelance alternatives.`,
+            brandPositioning: `${companyName} positions itself as the ideal partner for growing businesses that need professional branding without the overhead of a large agency.`,
+          }
+        });
+      }, 3000);
       
       toast({
         title: 'Brief Requested',
@@ -177,15 +132,15 @@ const CreateBrief = () => {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="webhookUrl">n8n Webhook URL (Optional)</Label>
+              <Label htmlFor="otherLinks">Other Links</Label>
               <Input
-                id="webhookUrl"
-                value={webhookUrl}
-                onChange={(e) => setWebhookUrl(e.target.value)}
-                placeholder="e.g. https://n8n.your-domain.com/webhook/..."
+                id="otherLinks"
+                value={otherLinks}
+                onChange={(e) => setOtherLinks(e.target.value)}
+                placeholder="e.g. instagram.com/acme, linkedin.com/company/acme"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Connect to your n8n workflow for advanced brief generation. Leave empty for demo mode.
+                You can paste several links separated by commas for extra context (e.g. Instagram, LinkedIn, etc.)
               </p>
             </div>
           </CardContent>

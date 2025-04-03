@@ -6,6 +6,7 @@ export interface BrandBrief {
   id: string;
   companyName: string;
   website: string;
+  otherLinks?: string;
   status: 'pending' | 'completed';
   createdAt: string;
   briefData?: {
@@ -20,7 +21,7 @@ export interface BrandBrief {
 
 interface BrandBriefState {
   briefs: BrandBrief[];
-  addBrief: (companyName: string, website: string) => string;
+  addBrief: (companyName: string, website: string, otherLinks?: string) => string;
   updateBrief: (id: string, data: Partial<BrandBrief>) => void;
   getBrief: (id: string) => BrandBrief | undefined;
 }
@@ -29,12 +30,13 @@ export const useBrandBriefStore = create<BrandBriefState>()(
   persist(
     (set, get) => ({
       briefs: [],
-      addBrief: (companyName, website) => {
+      addBrief: (companyName, website, otherLinks = '') => {
         const id = Date.now().toString();
         const newBrief: BrandBrief = {
           id,
           companyName,
           website,
+          otherLinks,
           status: 'pending',
           createdAt: new Date().toISOString(),
         };
