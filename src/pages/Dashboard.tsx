@@ -27,7 +27,7 @@ const Dashboard = () => {
           </p>
           
           {!isPaying && (
-            <div className="mt-4 p-3 bg-amber-50 text-amber-800 rounded-md inline-block">
+            <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 rounded-md inline-block">
               {isFreeUsageAvailable() ? (
                 <p>You have used {briefsCreated} of {FREE_BRIEF_LIMIT} free briefs</p>
               ) : (
@@ -43,7 +43,7 @@ const Dashboard = () => {
             type="single" 
             value={viewMode} 
             onValueChange={(value) => value && setViewMode(value as 'grid' | 'list')}
-            className="border rounded-md"
+            className="border rounded-md dark:border-gray-700"
           >
             <ToggleGroupItem value="grid" aria-label="Grid view">
               <LayoutGrid className="h-4 w-4" />
