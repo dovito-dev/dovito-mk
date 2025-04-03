@@ -32,7 +32,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
         <CardContent className="p-6 flex-1">
           <div className="w-14 h-14 rounded-full stripe-icon-bg flex items-center justify-center mb-4">
             {React.cloneElement(icon as React.ReactElement, {
-              className: "text-indigo-600 h-6 w-6 dark:text-blue-300"
+              className: "text-indigo-600 dark:text-blue-300 h-6 w-6"
             })}
           </div>
           <h3 className="text-xl font-semibold mb-2">{title}</h3>

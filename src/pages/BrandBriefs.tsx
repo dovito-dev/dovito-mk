@@ -31,7 +31,7 @@ const BrandBriefs = () => {
         </div>
 
         {/* Feature Showcase */}
-        <div className="border rounded-xl p-8 shadow-sm bg-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="border rounded-xl p-8 shadow-sm bg-white dark:bg-gray-800/95 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
             <p className="text-muted-foreground">Three simple steps to your comprehensive brand brief</p>
@@ -75,32 +75,32 @@ const BrandBriefs = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
-            <Users className="h-10 w-10 text-brand-blue mb-4" />
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white dark:bg-gray-800/95">
+            <Users className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Target Audience Insights</h3>
             <p className="text-muted-foreground">
               Identify your ideal customers and understand their needs, preferences, and pain points.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
-            <Target className="h-10 w-10 text-brand-purple mb-4" />
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white dark:bg-gray-800/95">
+            <Target className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Positioning</h3>
             <p className="text-muted-foreground">
               Define how your brand differs from competitors and resonates with your audience.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
-            <BarChart className="h-10 w-10 text-brand-lightBlue mb-4" />
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white dark:bg-gray-800/95">
+            <BarChart className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Competitive Analysis</h3>
             <p className="text-muted-foreground">
               Get insights on your industry landscape and how to stand out from competitors.
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
-            <FileText className="h-10 w-10 text-brand-pink mb-4" />
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white dark:bg-gray-800/95">
+            <FileText className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Voice & Values</h3>
             <p className="text-muted-foreground">
               Establish a consistent communication style and core values that represent your brand.
@@ -117,7 +117,7 @@ const BrandBriefs = () => {
             Join hundreds of businesses who've clarified their brand identity with our tool.
           </p>
           <Link to="/create">
-            <Button size="lg" variant="secondary" className="bg-white text-brand-blue hover:bg-gray-100">
+            <Button size="lg" variant="secondary" className="bg-white text-indigo-600 hover:bg-gray-100">
               Generate Your Brief Now
             </Button>
           </Link>
