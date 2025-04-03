@@ -5,6 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const EmailCopywriter = () => {
   return (
@@ -59,17 +66,23 @@ const EmailCopywriter = () => {
           
           <div>
             <label htmlFor="purpose" className="block font-medium mb-2">Email Purpose</label>
-            <select 
-              id="purpose"
-              className="w-full h-10 px-3 py-2 border border-input rounded-md bg-background"
-            >
-              <option value="">Select purpose...</option>
-              <option value="welcome">Welcome Email</option>
-              <option value="newsletter">Newsletter</option>
-              <option value="promotion">Promotion</option>
-              <option value="follow-up">Follow-up</option>
-              <option value="announcement">Announcement</option>
-            </select>
+            <Select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select purpose..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="prospect-outreach">Prospect Outreach</SelectItem>
+                <SelectItem value="lead-nurturing">Lead Nurturing</SelectItem>
+                <SelectItem value="promotions">Promotions/Special Offers</SelectItem>
+                <SelectItem value="follow-up">Warm Follow-Up</SelectItem>
+                <SelectItem value="event-announcement">Event or Launch Announcement</SelectItem>
+                <SelectItem value="welcome">Welcome/Onboarding</SelectItem>
+                <SelectItem value="re-engagement">Re-Engagement</SelectItem>
+                <SelectItem value="upsell">Upsell/Cross-Sell</SelectItem>
+                <SelectItem value="partnerships">Partnerships/Collaborations</SelectItem>
+                <SelectItem value="newsletter">Newsletter/Updates</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="pt-4">
