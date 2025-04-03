@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -17,12 +18,12 @@ const Index = () => {
           </p>
           <div className="mt-8 flex gap-4 justify-center">
             <Link to="/create">
-              <Button size="lg" className="gradient-bg">
+              <Button size="lg" className="bg-gradient-to-r from-brand-blue to-brand-purple hover:from-brand-blue/90 hover:to-brand-purple/90">
                 Create Your Brief
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" className="border-brand-blue/30 hover:border-brand-purple/50">
                 View Examples
               </Button>
             </Link>
@@ -30,7 +31,7 @@ const Index = () => {
         </div>
 
         {/* Feature Showcase */}
-        <div className="border rounded-xl p-8 shadow-sm bg-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="border rounded-xl p-8 shadow-sm bg-white animate-fade-in gradient-border" style={{ animationDelay: '0.2s' }}>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
             <p className="text-muted-foreground">Three simple steps to your comprehensive brand brief</p>
@@ -38,7 +39,7 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-4">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full step-icon-bg flex items-center justify-center mb-4">
                 <FileText className="text-white h-6 w-6" />
               </div>
               <h3 className="text-lg font-medium mb-2">Enter Your Details</h3>
@@ -46,7 +47,7 @@ const Index = () => {
             </div>
             
             <div className="flex flex-col items-center text-center p-4">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full step-icon-bg flex items-center justify-center mb-4">
                 <Zap className="text-white h-6 w-6" />
               </div>
               <h3 className="text-lg font-medium mb-2">AI Analysis</h3>
@@ -54,7 +55,7 @@ const Index = () => {
             </div>
             
             <div className="flex flex-col items-center text-center p-4">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full step-icon-bg flex items-center justify-center mb-4">
                 <Target className="text-white h-6 w-6" />
               </div>
               <h3 className="text-lg font-medium mb-2">Get Your Brief</h3>
@@ -74,7 +75,7 @@ const Index = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
             <Users className="h-10 w-10 text-brand-blue mb-4" />
             <h3 className="text-xl font-semibold mb-2">Target Audience Insights</h3>
             <p className="text-muted-foreground">
@@ -82,7 +83,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
             <Target className="h-10 w-10 text-brand-purple mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Positioning</h3>
             <p className="text-muted-foreground">
@@ -90,7 +91,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
             <BarChart className="h-10 w-10 text-brand-lightBlue mb-4" />
             <h3 className="text-xl font-semibold mb-2">Competitive Analysis</h3>
             <p className="text-muted-foreground">
@@ -98,7 +99,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white">
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow bg-white gradient-border">
             <FileText className="h-10 w-10 text-brand-pink mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Voice & Values</h3>
             <p className="text-muted-foreground">
@@ -110,7 +111,7 @@ const Index = () => {
 
       {/* CTA Section */}
       <section className="py-12 md:py-20">
-        <div className="gradient-bg rounded-xl p-10 text-white text-center">
+        <div className="bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl p-10 text-white text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Define Your Brand?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join hundreds of businesses who've clarified their brand identity with our tool.
