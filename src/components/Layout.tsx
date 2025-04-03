@@ -45,24 +45,32 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-brand-lightPurple/50">
       <DevModeToggle />
-      <Navbar location={location} />
-      
-      <div className="flex flex-1 overflow-hidden">
-        <SidebarMenu 
-          location={location}
-          sidebarCollapsed={sidebarCollapsed}
-          toggleSidebar={toggleSidebar}
-          isBrandBriefsOpen={isBrandBriefsOpen}
-          setBrandBriefsOpen={setBrandBriefsOpen}
-          isEmailsOpen={isEmailsOpen}
-          setEmailsOpen={setEmailsOpen}
-          isBrandBriefsActive={isBrandBriefsActive}
-          isEmailsActive={isEmailsActive}
-        />
+      <div className="flex flex-col h-screen">
+        {/* Fixed Navbar at the top */}
+        <div className="sticky top-0 z-40 w-full">
+          <Navbar location={location} />
+        </div>
         
-        <main className={`flex-1 p-6 dark:bg-gray-900 dark:text-gray-100 overflow-y-auto ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'} transition-all duration-300`}>
-          {children}
-        </main>
+        {/* Content area below navbar */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Fixed Sidebar */}
+          <SidebarMenu 
+            location={location}
+            sidebarCollapsed={sidebarCollapsed}
+            toggleSidebar={toggleSidebar}
+            isBrandBriefsOpen={isBrandBriefsOpen}
+            setBrandBriefsOpen={setBrandBriefsOpen}
+            isEmailsOpen={isEmailsOpen}
+            setEmailsOpen={setEmailsOpen}
+            isBrandBriefsActive={isBrandBriefsActive}
+            isEmailsActive={isEmailsActive}
+          />
+          
+          {/* Scrollable main content */}
+          <main className={`flex-1 overflow-y-auto ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'} transition-all duration-300 p-6 dark:bg-gray-900 dark:text-gray-100`}>
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

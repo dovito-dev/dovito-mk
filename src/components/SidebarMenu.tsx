@@ -33,12 +33,14 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   isEmailsActive
 }) => {
   return (
-    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 backdrop-blur-md shadow-sm`}>
+    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:flex md:flex-col fixed h-full top-0 pt-[64px]`}>
       <div className="flex justify-end mb-2">
         <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
       </div>
-      <nav className="space-y-1 pt-4 flex flex-col h-[calc(100vh-100px)] overflow-y-auto">
-        <div className="flex-grow">
+      
+      {/* Scrollable navigation items */}
+      <div className="flex-1 overflow-y-auto pr-1 pb-4">
+        <nav className="space-y-1 flex flex-col">
           <NavItem 
             to="/"
             icon={<Home className="h-5 w-5" />}
@@ -214,24 +216,24 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             collapsed={sidebarCollapsed}
             toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
+        </nav>
+      </div>
+      
+      {/* Settings and Theme Toggle fixed at the bottom */}
+      <div className="mt-auto border-t pt-4 dark:border-gray-700/50">
+        <NavItem 
+          to="/settings"
+          icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
+          label="Settings"
+          active={location.pathname === '/settings'}
+          collapsed={sidebarCollapsed}
+          toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
+        />
+        <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-between items-center'} mt-4 px-2`}>
+          {!sidebarCollapsed && <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Theme</span>}
+          <ThemeToggle collapsed={sidebarCollapsed} />
         </div>
-        
-        {/* Settings and Theme Toggle at the bottom with increased padding */}
-        <div className="mt-auto pb-12">
-          <NavItem 
-            to="/settings"
-            icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
-            label="Settings"
-            active={location.pathname === '/settings'}
-            collapsed={sidebarCollapsed}
-            toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
-          />
-          <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-between items-center'} mt-4 px-2`}>
-            {!sidebarCollapsed && <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Theme</span>}
-            <ThemeToggle collapsed={sidebarCollapsed} />
-          </div>
-        </div>
-      </nav>
+      </div>
     </aside>
   );
 };
