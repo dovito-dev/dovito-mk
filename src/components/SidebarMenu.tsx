@@ -52,7 +52,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           <div className="space-y-1">
             <NavItem 
               to="/brand-briefs"
-              icon={<FileText className="h-5 w-5 text-brand-blue" />}
+              icon={<FileText className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
               label="Brand Briefs"
               active={isBrandBriefsActive}
               hasChildren={true}
@@ -70,7 +70,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
-                    <BookOpen className="h-4 w-4 text-brand-lightBlue" />
+                    <BookOpen className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <span>Intro</span>
                   </Button>
                 </Link>
@@ -80,7 +80,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
-                    <FileText className="h-4 w-4 text-brand-darkBlue" />
+                    <FileText className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <span>Create Brief</span>
                   </Button>
                 </Link>
@@ -90,7 +90,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
-                    <List className="h-4 w-4 text-brand-purple" />
+                    <List className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <span>My Briefs</span>
                   </Button>
                 </Link>
@@ -106,7 +106,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="h-8 w-8"
                     onClick={toggleSidebar}
                   >
-                    <BookOpen className="h-4 w-4 text-brand-lightBlue" />
+                    <BookOpen className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   </Button>
                 </Link>
                 <Link to="/create">
@@ -116,7 +116,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="h-8 w-8"
                     onClick={toggleSidebar}
                   >
-                    <FileText className="h-4 w-4 text-brand-darkBlue" />
+                    <FileText className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   </Button>
                 </Link>
                 <Link to="/dashboard">
@@ -126,7 +126,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="h-8 w-8"
                     onClick={toggleSidebar}
                   >
-                    <List className="h-4 w-4 text-brand-purple" />
+                    <List className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   </Button>
                 </Link>
               </div>
@@ -137,7 +137,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           <div className="space-y-1">
             <NavItem 
               to="/email-copywriter"
-              icon={<Mail className="h-5 w-5 text-brand-pink" />}
+              icon={<Mail className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
               label="Email Copywriter"
               active={isEmailsActive}
               hasChildren={true}
@@ -155,7 +155,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
-                    <Mail className="h-4 w-4 text-brand-pink" />
+                    <Mail className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <span>Create Email</span>
                   </Button>
                 </Link>
@@ -165,7 +165,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
-                    <Send className="h-4 w-4 text-brand-lightBlue" />
+                    <Send className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <span>My Emails</span>
                   </Button>
                 </Link>
@@ -181,7 +181,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="h-8 w-8"
                     onClick={toggleSidebar}
                   >
-                    <Mail className="h-4 w-4 text-brand-pink" />
+                    <Mail className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   </Button>
                 </Link>
                 <Link to="/generated-emails">
@@ -191,7 +191,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     className="h-8 w-8"
                     onClick={toggleSidebar}
                   >
-                    <Send className="h-4 w-4 text-brand-lightBlue" />
+                    <Send className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                   </Button>
                 </Link>
               </div>
@@ -200,7 +200,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           
           <NavItem 
             to="/agent-voice"
-            icon={<Mic className="h-5 w-5 text-brand-blue" />}
+            icon={<Mic className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
             label="Agent Voice"
             active={location.pathname === '/agent-voice'}
             collapsed={sidebarCollapsed}
@@ -208,7 +208,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
           <NavItem 
             to="/social-media"
-            icon={<Share2 className="h-5 w-5 text-brand-purple" />}
+            icon={<Share2 className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
             label="Social Media"
             active={location.pathname === '/social-media'}
             collapsed={sidebarCollapsed}
@@ -220,7 +220,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         <div className="mt-auto pb-12">
           <NavItem 
             to="/settings"
-            icon={<Settings className="h-5 w-5 text-brand-darkBlue" />}
+            icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
             label="Settings"
             active={location.pathname === '/settings'}
             collapsed={sidebarCollapsed}
