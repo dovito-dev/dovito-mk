@@ -2,23 +2,59 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, Star } from 'lucide-react';
+import { Check, Star, CreditCard } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
-// Simulated auth & subscription state - replace with your actual implementation
+// Simulated auth & subscription state with toggle
 const useAuthStatus = () => {
-  // Mock implementation - replace with your auth logic
-  return { isSignedIn: false, isPaying: false };
+  const [isPaying, setIsPaying] = useState(false);
+  
+  return { 
+    isSignedIn: true, // Always signed in for development
+    isPaying,
+    setIsPaying
+  };
 };
 
 const GetStarted: React.FC = () => {
-  const { isSignedIn, isPaying } = useAuthStatus();
+  const { isSignedIn, isPaying, setIsPaying } = useAuthStatus();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   
-  if (isSignedIn && isPaying) {
-    return <OnboardingGuide />;
-  }
-  
-  return <SubscriptionPortal selectedPlan={selectedPlan} setSelectedPlan={setSelectedPlan} />;
+  return (
+    <div className="container mx-auto px-4 py-6">
+      {/* Developer toggle for subscription status */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <CreditCard className="h-5 w-5 text-yellow-600" />
+            <div>
+              <p className="font-medium text-yellow-800">Developer Mode</p>
+              <p className="text-sm text-yellow-700">
+                This toggle will be removed in production
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Switch 
+              id="subscription-mode" 
+              checked={isPaying}
+              onCheckedChange={setIsPaying}
+            />
+            <Label htmlFor="subscription-mode" className="font-medium">
+              {isPaying ? "Paying Member" : "Free User"}
+            </Label>
+          </div>
+        </div>
+      </div>
+
+      {isPaying ? (
+        <OnboardingGuide />
+      ) : (
+        <SubscriptionPortal selectedPlan={selectedPlan} setSelectedPlan={setSelectedPlan} />
+      )}
+    </div>
+  );
 };
 
 // Onboarding guide shown to paying subscribers
