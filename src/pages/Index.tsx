@@ -76,7 +76,7 @@ const Index = () => {
         
         <div className="grid md:grid-cols-2 gap-8">
           <div className="stripe-card p-6 hover:shadow-md transition-all">
-            <Users className="h-10 w-10 text-indigo-500 mb-4" />
+            <Users className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Target Audience Insights</h3>
             <p className="text-muted-foreground">
               Identify your ideal customers and understand their needs, preferences, and pain points.
@@ -84,7 +84,7 @@ const Index = () => {
           </div>
           
           <div className="stripe-card p-6 hover:shadow-md transition-all">
-            <Target className="h-10 w-10 text-indigo-500 mb-4" />
+            <Target className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Positioning</h3>
             <p className="text-muted-foreground">
               Define how your brand differs from competitors and resonates with your audience.
@@ -92,7 +92,7 @@ const Index = () => {
           </div>
           
           <div className="stripe-card p-6 hover:shadow-md transition-all">
-            <BarChart className="h-10 w-10 text-indigo-500 mb-4" />
+            <BarChart className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Competitive Analysis</h3>
             <p className="text-muted-foreground">
               Get insights on your industry landscape and how to stand out from competitors.
@@ -100,7 +100,7 @@ const Index = () => {
           </div>
           
           <div className="stripe-card p-6 hover:shadow-md transition-all">
-            <FileText className="h-10 w-10 text-indigo-500 mb-4" />
+            <FileText className="h-10 w-10 text-indigo-600 dark:text-blue-300 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Brand Voice & Values</h3>
             <p className="text-muted-foreground">
               Establish a consistent communication style and core values that represent your brand.
@@ -113,7 +113,7 @@ const Index = () => {
       <section className="py-12 md:py-20">
         <div className="rounded-xl p-10 bg-gradient-to-r from-indigo-500/10 to-purple-500/20 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Define Your Brand?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-700">
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
             Join hundreds of businesses who've clarified their brand identity with our tool.
           </p>
           <Link to="/create">
