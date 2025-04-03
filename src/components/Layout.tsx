@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -123,7 +122,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </header>
       
       <div className="flex flex-1 overflow-hidden">
-        <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-muted dark:bg-gray-800 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 overflow-y-auto h-[calc(100vh-4rem)]`}>
+        <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-muted dark:bg-gray-800 dark:border-gray-700 p-4 hidden md:block flex-shrink-0`}>
           <div className="flex justify-end mb-2">
             <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
           </div>
