@@ -33,7 +33,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   isEmailsActive
 }) => {
   return (
-    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-brand-softPurple/80 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 backdrop-blur-md`}>
+    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:block flex-shrink-0 backdrop-blur-md shadow-sm`}>
       <div className="flex justify-end mb-2">
         <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
       </div>
