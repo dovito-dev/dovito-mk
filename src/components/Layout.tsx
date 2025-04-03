@@ -39,11 +39,17 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Home
             </Link>
-            <Link to="/create" className={`text-sm font-medium ${location.pathname === '/create' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
-              Create Brief
+            <Link to="/brand-briefs" className={`text-sm font-medium ${location.pathname.startsWith('/brand-briefs') ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+              Brand Briefs
             </Link>
-            <Link to="/dashboard" className={`text-sm font-medium ${location.pathname === '/dashboard' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
-              My Briefs
+            <Link to="/email-copywriter" className={`text-sm font-medium ${location.pathname === '/email-copywriter' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+              Email Copywriter
+            </Link>
+            <Link to="/agent-voice" className={`text-sm font-medium ${location.pathname === '/agent-voice' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+              Agent Voice
+            </Link>
+            <Link to="/social-media" className={`text-sm font-medium ${location.pathname === '/social-media' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+              Social Media
             </Link>
             <Button size="sm" className="ml-4 gradient-bg">
               Get Started
@@ -60,6 +66,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               icon={<Home className="h-5 w-5" />}
               label="Home"
               active={location.pathname === '/'}
+            />
+            <NavItem 
+              to="/brand-briefs"
+              icon={<FileText className="h-5 w-5" />}
+              label="Brand Briefs"
+              active={location.pathname.startsWith('/brand-briefs')}
             />
             <NavItem 
               to="/create"
