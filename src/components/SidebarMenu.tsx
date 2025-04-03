@@ -6,7 +6,6 @@ import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings, Cred
 import SidebarToggle from './SidebarToggle';
 import ThemeToggle from './ThemeToggle';
 import NavItem from './NavItem';
-import DevModeToggle from './DevModeToggle';
 import { useSubscription } from '@/context/SubscriptionContext';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -254,17 +253,42 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           )}
         </div>
 
-        <NavItem 
-          to="/settings"
-          icon={<Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />}
-          label="Settings"
-          active={location.pathname === '/settings'}
-          collapsed={sidebarCollapsed}
-          toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
-        />
-        <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-between items-center'} mt-4 px-2`}>
-          {!sidebarCollapsed && <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Theme</span>}
-          <ThemeToggle collapsed={sidebarCollapsed} />
+        {/* Settings Button with similar styling to Developer Mode */}
+        <div className={`mb-4 ${!sidebarCollapsed ? 'px-2' : 'flex justify-center'}`}>
+          {!sidebarCollapsed ? (
+            <Link to="/settings" className="w-full">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Settings className="h-4 w-4 text-indigo-600" />
+                  <span className="text-xs font-medium text-indigo-800">Settings</span>
+                </div>
+              </div>
+            </Link>
+          ) : (
+            <Link to="/settings">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-indigo-600"
+              >
+                <Settings className="h-5 w-5" />
+              </Button>
+            </Link>
+          )}
+        </div>
+
+        {/* Theme toggle with similar styling */}
+        <div className={`${!sidebarCollapsed ? 'px-2' : 'flex justify-center'}`}>
+          {!sidebarCollapsed ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-medium text-indigo-800">Theme</span>
+              </div>
+              <ThemeToggle collapsed={false} />
+            </div>
+          ) : (
+            <ThemeToggle collapsed={true} />
+          )}
         </div>
       </div>
     </aside>
