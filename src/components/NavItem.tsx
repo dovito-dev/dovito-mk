@@ -35,7 +35,7 @@ const NavItem: React.FC<NavItemProps> = ({
   };
 
   const activeClasses = active 
-    ? "bg-secondary text-white font-medium" 
+    ? "bg-secondary text-secondary-foreground font-medium" 
     : "hover:bg-accent/50 text-gray-600 hover:text-foreground dark:text-gray-400 dark:hover:text-gray-200";
 
   if (hasChildren) {
@@ -46,12 +46,10 @@ const NavItem: React.FC<NavItemProps> = ({
         onClick={onToggleSubMenu}
       >
         <div className="flex items-center gap-2">
-          {React.cloneElement(icon as React.ReactElement, {
-            className: active ? 'text-white' : 'text-gray-600 dark:text-gray-400'
-          })}
+          {icon}
           {!collapsed && <span>{label}</span>}
         </div>
-        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} ${active ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`} />}
+        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} ${active ? 'text-secondary-foreground' : 'text-gray-500 dark:text-gray-400'}`} />}
       </Button>
     );
   }
@@ -63,9 +61,7 @@ const NavItem: React.FC<NavItemProps> = ({
         className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
         onClick={handleClick}
       >
-        {React.cloneElement(icon as React.ReactElement, {
-          className: active ? 'text-white' : 'text-gray-600 dark:text-gray-400'
-        })}
+        {icon}
         {!collapsed && <span>{label}</span>}
       </Button>
     );
@@ -77,9 +73,7 @@ const NavItem: React.FC<NavItemProps> = ({
         variant="ghost"
         className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
       >
-        {React.cloneElement(icon as React.ReactElement, {
-          className: active ? 'text-white' : 'text-gray-600 dark:text-gray-400'
-        })}
+        {icon}
         {!collapsed && <span>{label}</span>}
       </Button>
     </Link>
