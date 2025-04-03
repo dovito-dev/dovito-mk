@@ -109,115 +109,118 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </header>
       
       <div className="flex flex-1">
-        <aside className="w-64 border-r bg-muted p-4 hidden md:block">
-          <nav className="space-y-1 pt-4">
-            <NavItem 
-              to="/"
-              icon={<Home className="h-5 w-5" />}
-              label="Home"
-              active={location.pathname === '/'}
-            />
-            
-            {/* Brand Briefs with sub-menu */}
-            <div className="space-y-1">
+        <aside className="w-64 border-r bg-muted p-4 hidden md:block flex flex-col">
+          <nav className="space-y-1 pt-4 flex flex-col h-full">
+            <div className="flex-grow">
               <NavItem 
-                to="/brand-briefs"
-                icon={<FileText className="h-5 w-5" />}
-                label="Brand Briefs"
-                active={isBrandBriefsActive}
-                hasChildren={true}
-                isOpen={isBrandBriefsOpen}
-                onToggleSubMenu={() => setBrandBriefsOpen(!isBrandBriefsOpen)}
+                to="/"
+                icon={<Home className="h-5 w-5" />}
+                label="Home"
+                active={location.pathname === '/'}
               />
               
-              {isBrandBriefsOpen && (
-                <div className="pl-6 space-y-1">
-                  <Link to="/brand-briefs">
-                    <Button
-                      variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
-                      className="w-full flex justify-start gap-2 mb-1 text-sm"
-                      size="sm"
-                    >
-                      <BookOpen className="h-4 w-4" />
-                      <span>Intro</span>
-                    </Button>
-                  </Link>
-                  <Link to="/create">
-                    <Button
-                      variant={location.pathname === '/create' ? "default" : "ghost"}
-                      className="w-full flex justify-start gap-2 mb-1 text-sm"
-                      size="sm"
-                    >
-                      <FileText className="h-4 w-4" />
-                      <span>Create Brief</span>
-                    </Button>
-                  </Link>
-                  <Link to="/dashboard">
-                    <Button
-                      variant={location.pathname === '/dashboard' ? "default" : "ghost"}
-                      className="w-full flex justify-start gap-2 mb-1 text-sm"
-                      size="sm"
-                    >
-                      <List className="h-4 w-4" />
-                      <span>My Briefs</span>
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </div>
-            
-            {/* Email Copywriter with sub-menu */}
-            <div className="space-y-1">
-              <NavItem 
-                to="/email-copywriter"
-                icon={<Mail className="h-5 w-5" />}
-                label="Email Copywriter"
-                active={isEmailsActive}
-                hasChildren={true}
-                isOpen={isEmailsOpen}
-                onToggleSubMenu={() => setEmailsOpen(!isEmailsOpen)}
-              />
+              {/* Brand Briefs with sub-menu */}
+              <div className="space-y-1">
+                <NavItem 
+                  to="/brand-briefs"
+                  icon={<FileText className="h-5 w-5" />}
+                  label="Brand Briefs"
+                  active={isBrandBriefsActive}
+                  hasChildren={true}
+                  isOpen={isBrandBriefsOpen}
+                  onToggleSubMenu={() => setBrandBriefsOpen(!isBrandBriefsOpen)}
+                />
+                
+                {isBrandBriefsOpen && (
+                  <div className="pl-6 space-y-1">
+                    <Link to="/brand-briefs">
+                      <Button
+                        variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
+                        className="w-full flex justify-start gap-2 mb-1 text-sm"
+                        size="sm"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                        <span>Intro</span>
+                      </Button>
+                    </Link>
+                    <Link to="/create">
+                      <Button
+                        variant={location.pathname === '/create' ? "default" : "ghost"}
+                        className="w-full flex justify-start gap-2 mb-1 text-sm"
+                        size="sm"
+                      >
+                        <FileText className="h-4 w-4" />
+                        <span>Create Brief</span>
+                      </Button>
+                    </Link>
+                    <Link to="/dashboard">
+                      <Button
+                        variant={location.pathname === '/dashboard' ? "default" : "ghost"}
+                        className="w-full flex justify-start gap-2 mb-1 text-sm"
+                        size="sm"
+                      >
+                        <List className="h-4 w-4" />
+                        <span>My Briefs</span>
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
               
-              {isEmailsOpen && (
-                <div className="pl-6 space-y-1">
-                  <Link to="/email-copywriter">
-                    <Button
-                      variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
-                      className="w-full flex justify-start gap-2 mb-1 text-sm"
-                      size="sm"
-                    >
-                      <Mail className="h-4 w-4" />
-                      <span>Create Email</span>
-                    </Button>
-                  </Link>
-                  <Link to="/generated-emails">
-                    <Button
-                      variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
-                      className="w-full flex justify-start gap-2 mb-1 text-sm"
-                      size="sm"
-                    >
-                      <Send className="h-4 w-4" />
-                      <span>My Emails</span>
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              {/* Email Copywriter with sub-menu */}
+              <div className="space-y-1">
+                <NavItem 
+                  to="/email-copywriter"
+                  icon={<Mail className="h-5 w-5" />}
+                  label="Email Copywriter"
+                  active={isEmailsActive}
+                  hasChildren={true}
+                  isOpen={isEmailsOpen}
+                  onToggleSubMenu={() => setEmailsOpen(!isEmailsOpen)}
+                />
+                
+                {isEmailsOpen && (
+                  <div className="pl-6 space-y-1">
+                    <Link to="/email-copywriter">
+                      <Button
+                        variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
+                        className="w-full flex justify-start gap-2 mb-1 text-sm"
+                        size="sm"
+                      >
+                        <Mail className="h-4 w-4" />
+                        <span>Create Email</span>
+                      </Button>
+                    </Link>
+                    <Link to="/generated-emails">
+                      <Button
+                        variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
+                        className="w-full flex justify-start gap-2 mb-1 text-sm"
+                        size="sm"
+                      >
+                        <Send className="h-4 w-4" />
+                        <span>My Emails</span>
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+              
+              <NavItem 
+                to="/agent-voice"
+                icon={<Mic className="h-5 w-5" />}
+                label="Agent Voice"
+                active={location.pathname === '/agent-voice'}
+              />
+              <NavItem 
+                to="/social-media"
+                icon={<Share2 className="h-5 w-5" />}
+                label="Social Media"
+                active={location.pathname === '/social-media'}
+              />
             </div>
             
-            <NavItem 
-              to="/agent-voice"
-              icon={<Mic className="h-5 w-5" />}
-              label="Agent Voice"
-              active={location.pathname === '/agent-voice'}
-            />
-            <NavItem 
-              to="/social-media"
-              icon={<Share2 className="h-5 w-5" />}
-              label="Social Media"
-              active={location.pathname === '/social-media'}
-            />
-            
-            <div className="pt-6 mt-6 border-t border-border">
+            {/* Settings at the bottom */}
+            <div className="mt-auto pb-4">
               <NavItem 
                 to="/settings"
                 icon={<Settings className="h-5 w-5" />}
