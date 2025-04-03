@@ -41,7 +41,7 @@ const EmailCopywriter = () => {
               className="w-full"
             />
             <p className="text-sm text-muted-foreground mt-1">
-              Enter the URL of the company you're sending the email from. This helps generate on-brand messaging.
+              Enter the URL of the company you're sending the email to. This helps generate relevant messaging.
             </p>
           </div>
           
