@@ -60,7 +60,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           isEmailsActive={isEmailsActive}
         />
         
-        <main className="flex-1 p-6 dark:bg-gray-900 dark:text-gray-100 overflow-y-auto">
+        <main className={`flex-1 p-6 dark:bg-gray-900 dark:text-gray-100 overflow-y-auto ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'} transition-all duration-300`}>
           {children}
         </main>
       </div>
