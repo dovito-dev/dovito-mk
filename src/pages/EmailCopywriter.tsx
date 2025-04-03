@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import SubscriptionGate from '@/components/SubscriptionGate';
 import { useSubscription } from '@/context/SubscriptionContext';
@@ -217,8 +218,7 @@ Your Name
             
             <div className="pt-4">
               <Button 
-                variant="default"
-                className="w-full" 
+                className="w-full bg-secondary text-white hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md"
                 onClick={handleGenerate}
                 disabled={!recipientName || !recipientEmail || !purpose || isGenerating}
               >
