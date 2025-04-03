@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,18 +48,18 @@ const SocialMedia = () => {
             </div>
           </div>
           <h1 className="text-3xl font-bold mb-3">Social Media Content Creator</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto">
             Generate engaging content optimized for multiple social platforms
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-xl border">
+        <div className="glass-card p-8">
           <h2 className="font-semibold mb-4">Select Platforms</h2>
           
           <div className="flex flex-wrap gap-3 mb-8">
             <Button
               variant={isPlatformSelected('all') ? "default" : "outline"}
-              className={isPlatformSelected('all') ? "gradient-bg" : ""}
+              className={isPlatformSelected('all') ? "bg-brand-softPurple text-brand-purple hover:bg-brand-softPurple/80 rounded-full" : "rounded-full"}
               onClick={() => togglePlatform('all')}
             >
               All Platforms
@@ -66,7 +67,7 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('instagram') ? "default" : "outline"}
-              className={isPlatformSelected('instagram') ? "bg-[#E1306C] hover:bg-[#C13584]" : ""}
+              className={isPlatformSelected('instagram') ? "bg-[#E1306C] hover:bg-[#C13584] rounded-full" : "rounded-full"}
               onClick={() => togglePlatform('instagram')}
             >
               <Instagram className="h-4 w-4 mr-2" /> Instagram
@@ -74,7 +75,7 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('facebook') ? "default" : "outline"}
-              className={isPlatformSelected('facebook') ? "bg-[#1877F2] hover:bg-[#166FE5]" : ""}
+              className={isPlatformSelected('facebook') ? "bg-[#1877F2] hover:bg-[#166FE5] rounded-full" : "rounded-full"}
               onClick={() => togglePlatform('facebook')}
             >
               <Facebook className="h-4 w-4 mr-2" /> Facebook
@@ -82,7 +83,7 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('twitter') ? "default" : "outline"}
-              className={isPlatformSelected('twitter') ? "bg-[#000000] hover:bg-[#333333]" : ""}
+              className={isPlatformSelected('twitter') ? "bg-[#000000] hover:bg-[#333333] rounded-full" : "rounded-full"}
               onClick={() => togglePlatform('twitter')}
             >
               <X className="h-4 w-4 mr-2" /> X
@@ -90,7 +91,7 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('linkedin') ? "default" : "outline"}
-              className={isPlatformSelected('linkedin') ? "bg-[#0A66C2] hover:bg-[#004182]" : ""}
+              className={isPlatformSelected('linkedin') ? "bg-[#0A66C2] hover:bg-[#004182] rounded-full" : "rounded-full"}
               onClick={() => togglePlatform('linkedin')}
             >
               <Linkedin className="h-4 w-4 mr-2" /> LinkedIn
@@ -100,12 +101,12 @@ const SocialMedia = () => {
           <h2 className="font-semibold mb-4">Content Generation</h2>
           
           <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <Button size="lg" className="gradient-bg h-auto py-6">
+            <Button size="lg" className="purple-button h-auto py-6 rounded-full">
               <span className="text-lg">AutoGenerate</span>
               <span className="block text-xs mt-1">AI will create ideas for you</span>
             </Button>
             
-            <Button size="lg" variant="outline" className="h-auto py-6">
+            <Button size="lg" variant="outline" className="h-auto py-6 rounded-full border-brand-purple/20 text-brand-purple hover:bg-brand-softPurple/20">
               <span className="text-lg">Use My Idea</span>
               <span className="block text-xs mt-1">Start with your own concept</span>
             </Button>
@@ -116,7 +117,7 @@ const SocialMedia = () => {
             <Textarea
               id="topic"
               placeholder="Describe your content idea here..."
-              className="min-h-[120px]"
+              className="min-h-[120px] rounded-xl focus:ring-brand-purple/30 focus:border-brand-purple/30"
             />
           </div>
         </div>

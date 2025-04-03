@@ -34,18 +34,24 @@ const NavItem: React.FC<NavItemProps> = ({
     }
   };
 
+  const activeClasses = active 
+    ? "bg-brand-softPurple text-brand-purple font-medium" 
+    : "hover:bg-brand-softPurple/20 text-gray-600 hover:text-brand-purple";
+
   if (hasChildren) {
     return (
       <Button
-        variant={active ? "default" : "ghost"}
-        className={`w-full flex justify-between items-center mb-1 ${active ? "" : "hover:bg-muted"} ${collapsed ? "px-2" : ""}`}
+        variant="ghost"
+        className={`w-full flex justify-between items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
         onClick={onToggleSubMenu}
       >
         <div className="flex items-center gap-2">
-          {icon}
+          {React.cloneElement(icon as React.ReactElement, {
+            className: `h-5 w-5 ${active ? 'text-brand-purple' : 'text-gray-500'}`
+          })}
           {!collapsed && <span>{label}</span>}
         </div>
-        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />}
+        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} ${active ? 'text-brand-purple' : 'text-gray-500'}`} />}
       </Button>
     );
   }
@@ -53,11 +59,13 @@ const NavItem: React.FC<NavItemProps> = ({
   if (collapsed) {
     return (
       <Button
-        variant={active ? "default" : "ghost"}
-        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 ${active ? "" : "hover:bg-muted"} ${collapsed ? "px-2" : ""}`}
+        variant="ghost"
+        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
         onClick={handleClick}
       >
-        {icon}
+        {React.cloneElement(icon as React.ReactElement, {
+          className: `h-5 w-5 ${active ? 'text-brand-purple' : 'text-gray-500'}`
+        })}
         {!collapsed && <span>{label}</span>}
       </Button>
     );
@@ -66,10 +74,12 @@ const NavItem: React.FC<NavItemProps> = ({
   return (
     <Link to={to}>
       <Button
-        variant={active ? "default" : "ghost"}
-        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 ${active ? "" : "hover:bg-muted"} ${collapsed ? "px-2" : ""}`}
+        variant="ghost"
+        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
       >
-        {icon}
+        {React.cloneElement(icon as React.ReactElement, {
+          className: `h-5 w-5 ${active ? 'text-brand-purple' : 'text-gray-500'}`
+        })}
         {!collapsed && <span>{label}</span>}
       </Button>
     </Link>

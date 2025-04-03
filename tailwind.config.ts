@@ -68,13 +68,22 @@ export default {
 					purple: "#7209B7",
 					lightBlue: "#4CC9F0",
 					darkBlue: "#3A0CA3",
-					pink: "#F72585"
+					pink: "#F72585",
+					lavender: "#E6E6FA",
+					lilac: "#C8A2C8",
+					softPurple: "#E9D5FF",
+					lightPurple: "#F3EAFF"
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+				xl: '1rem',
+				'2xl': '1.5rem',
+				'3xl': '2rem',
+				'4xl': '3rem',
+				'5xl': '4rem',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -113,7 +122,13 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-up': 'fade-up 0.5s ease-out'
-			}
+			},
+			boxShadow: {
+				'soft': '0 4px 20px 0 rgba(0, 0, 0, 0.05)',
+				'button': '0 5px 15px rgba(0, 0, 0, 0.1)',
+				'card': '0 10px 30px rgba(0, 0, 0, 0.08)',
+				'purple': '0 5px 15px rgba(126, 87, 194, 0.3)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
