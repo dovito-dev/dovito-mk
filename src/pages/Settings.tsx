@@ -182,7 +182,7 @@ const ConnectionSettings: React.FC = () => {
       id: 'google', 
       name: 'Google', 
       connected: true, 
-      iconPath: "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+      iconPath: "https://www.google.com/gmail/about/static/images/logo-gmail.png"
     },
     { 
       id: 'outlook', 
@@ -212,7 +212,7 @@ const ConnectionSettings: React.FC = () => {
       id: 'twitter', 
       name: 'X (Twitter)', 
       connected: false, 
-      iconPath: "https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg"
     },
   ];
 
