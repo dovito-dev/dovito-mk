@@ -228,7 +228,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
           <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-between items-center'} mt-4 px-2`}>
             {!sidebarCollapsed && <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Theme</span>}
-            <ThemeToggle />
+            <ThemeToggle collapsed={sidebarCollapsed} />
           </div>
         </div>
       </nav>
