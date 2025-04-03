@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 const EmailCopywriter = () => {
   return (
@@ -18,15 +19,18 @@ const EmailCopywriter = () => {
         </p>
       </div>
 
-      <div className="bg-white p-8 rounded-xl border">
+      <Card className="p-8 rounded-xl">
         <div className="space-y-6">
           <div>
-            <label htmlFor="email" className="block font-medium mb-2">Email to Analyze</label>
-            <Input 
+            <label htmlFor="email" className="block font-medium mb-2">Email to Analyze <span className="text-sm text-muted-foreground">(optional)</span></label>
+            <Textarea 
               id="email" 
-              placeholder="paste an existing email here to analyze its style..."
+              placeholder="Paste an existing email here to analyze its style..."
               className="w-full"
             />
+            <p className="text-sm text-muted-foreground mt-1">
+              Paste a sample email to help generate copy that matches your existing style.
+            </p>
           </div>
           
           <div>
@@ -36,15 +40,21 @@ const EmailCopywriter = () => {
               placeholder="https://your-company.com"
               className="w-full"
             />
+            <p className="text-sm text-muted-foreground mt-1">
+              Enter the URL of the company you're sending the email from. This helps generate on-brand messaging.
+            </p>
           </div>
           
           <div>
-            <label htmlFor="name" className="block font-medium mb-2">Full Name</label>
+            <label htmlFor="name" className="block font-medium mb-2">Recipient's Full Name</label>
             <Input 
               id="name" 
               placeholder="John Doe"
               className="w-full"
             />
+            <p className="text-sm text-muted-foreground mt-1">
+              The full name of the person you're emailing.
+            </p>
           </div>
           
           <div>
@@ -66,7 +76,7 @@ const EmailCopywriter = () => {
             <Button className="w-full gradient-bg">Generate Email Copy</Button>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
