@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -295,8 +296,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               />
             </div>
             
-            {/* Settings and Theme Toggle at the bottom */}
-            <div className="mt-auto pb-4">
+            {/* Settings and Theme Toggle at the bottom with increased padding */}
+            <div className="mt-auto pb-8">
               <NavItem 
                 to="/settings"
                 icon={<Settings className="h-5 w-5" />}
