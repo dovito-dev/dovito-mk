@@ -32,7 +32,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
         <CardContent className="p-6 flex-1">
           <div className={cn(
             "w-14 h-14 rounded-full flex items-center justify-center mb-4", 
-            gradient ? "bg-brand-softPurple" : "bg-slate-100"
+            gradient ? "bg-brand-softPurple" : "bg-gradient-to-br from-brand-blue/10 to-brand-purple/10"
           )}>
             {React.cloneElement(icon as React.ReactElement, {
               className: gradient ? "text-brand-purple h-6 w-6" : "text-brand-purple h-6 w-6"
