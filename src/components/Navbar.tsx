@@ -29,19 +29,19 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
         </Link>
         <div className="flex items-center">
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'text-primary' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
+            <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
               Home
             </Link>
-            <Link to="/brand-briefs" className={`text-sm font-medium ${isBrandBriefsActive ? 'text-primary' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
+            <Link to="/brand-briefs" className={`text-sm font-medium ${isBrandBriefsActive ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
               Brand Briefs
             </Link>
-            <Link to="/email-copywriter" className={`text-sm font-medium ${isEmailsActive ? 'text-primary' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
+            <Link to="/email-copywriter" className={`text-sm font-medium ${isEmailsActive ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
               Email Copywriter
             </Link>
-            <Link to="/agent-voice" className={`text-sm font-medium ${location.pathname === '/agent-voice' ? 'text-primary' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
+            <Link to="/agent-voice" className={`text-sm font-medium ${location.pathname === '/agent-voice' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
               Agent Voice
             </Link>
-            <Link to="/social-media" className={`text-sm font-medium ${location.pathname === '/social-media' ? 'text-primary' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
+            <Link to="/social-media" className={`text-sm font-medium ${location.pathname === '/social-media' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}>
               Social Media
             </Link>
           </nav>

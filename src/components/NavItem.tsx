@@ -35,8 +35,8 @@ const NavItem: React.FC<NavItemProps> = ({
   };
 
   const activeClasses = active 
-    ? "bg-secondary text-secondary-foreground font-medium" 
-    : "hover:bg-accent/50 text-gray-600 hover:text-foreground dark:text-gray-400 dark:hover:text-gray-200";
+    ? "bg-gray-200 text-primary font-medium dark:bg-gray-700" 
+    : "hover:bg-gray-100 text-gray-600 hover:text-foreground dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200";
 
   if (hasChildren) {
     return (
@@ -49,7 +49,7 @@ const NavItem: React.FC<NavItemProps> = ({
           {icon}
           {!collapsed && <span>{label}</span>}
         </div>
-        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} ${active ? 'text-secondary-foreground' : 'text-gray-500 dark:text-gray-400'}`} />}
+        {!collapsed && <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''} ${active ? 'text-primary' : 'text-gray-500 dark:text-gray-400'}`} />}
       </Button>
     );
   }
