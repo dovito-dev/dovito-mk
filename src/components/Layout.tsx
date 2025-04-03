@@ -24,7 +24,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     location.pathname.startsWith('/email/')
   );
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  // Start with the sidebar collapsed by default
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   
   const isBrandBriefsActive = 
     location.pathname.startsWith('/brand-briefs') || 

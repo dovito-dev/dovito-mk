@@ -45,6 +45,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             label="Home"
             active={location.pathname === '/'}
             collapsed={sidebarCollapsed}
+            toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
           
           {/* Brand Briefs with sub-menu */}
@@ -58,6 +59,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               isOpen={isBrandBriefsOpen}
               onToggleSubMenu={() => setBrandBriefsOpen(!isBrandBriefsOpen)}
               collapsed={sidebarCollapsed}
+              toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
             />
             
             {isBrandBriefsOpen && !sidebarCollapsed && (
@@ -102,6 +104,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
                     size="icon"
                     className="h-8 w-8"
+                    onClick={toggleSidebar}
                   >
                     <BookOpen className="h-4 w-4" />
                   </Button>
@@ -111,6 +114,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     variant={location.pathname === '/create' ? "default" : "ghost"}
                     size="icon"
                     className="h-8 w-8"
+                    onClick={toggleSidebar}
                   >
                     <FileText className="h-4 w-4" />
                   </Button>
@@ -120,6 +124,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     variant={location.pathname === '/dashboard' ? "default" : "ghost"}
                     size="icon"
                     className="h-8 w-8"
+                    onClick={toggleSidebar}
                   >
                     <List className="h-4 w-4" />
                   </Button>
@@ -139,6 +144,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               isOpen={isEmailsOpen}
               onToggleSubMenu={() => setEmailsOpen(!isEmailsOpen)}
               collapsed={sidebarCollapsed}
+              toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
             />
             
             {isEmailsOpen && !sidebarCollapsed && (
@@ -173,6 +179,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
                     size="icon"
                     className="h-8 w-8"
+                    onClick={toggleSidebar}
                   >
                     <Mail className="h-4 w-4" />
                   </Button>
@@ -182,6 +189,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
                     size="icon"
                     className="h-8 w-8"
+                    onClick={toggleSidebar}
                   >
                     <Send className="h-4 w-4" />
                   </Button>
@@ -196,6 +204,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             label="Agent Voice"
             active={location.pathname === '/agent-voice'}
             collapsed={sidebarCollapsed}
+            toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
           <NavItem 
             to="/social-media"
@@ -203,6 +212,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             label="Social Media"
             active={location.pathname === '/social-media'}
             collapsed={sidebarCollapsed}
+            toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
         </div>
         
@@ -214,6 +224,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             label="Settings"
             active={location.pathname === '/settings'}
             collapsed={sidebarCollapsed}
+            toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
           <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-start'} mt-2`}>
             <ThemeToggle />

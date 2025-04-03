@@ -13,6 +13,7 @@ type NavItemProps = {
   isOpen?: boolean;
   onToggleSubMenu?: () => void;
   collapsed?: boolean;
+  toggleSidebar?: () => void;
 };
 
 const NavItem: React.FC<NavItemProps> = ({ 
@@ -23,8 +24,16 @@ const NavItem: React.FC<NavItemProps> = ({
   hasChildren = false,
   isOpen = false,
   onToggleSubMenu,
-  collapsed = false
+  collapsed = false,
+  toggleSidebar
 }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (collapsed && toggleSidebar) {
+      e.preventDefault();
+      toggleSidebar();
+    }
+  };
+
   if (hasChildren) {
     return (
       <Button
@@ -41,6 +50,19 @@ const NavItem: React.FC<NavItemProps> = ({
     );
   }
   
+  if (collapsed) {
+    return (
+      <Button
+        variant={active ? "default" : "ghost"}
+        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} gap-2 mb-1 ${active ? "" : "hover:bg-muted"} ${collapsed ? "px-2" : ""}`}
+        onClick={handleClick}
+      >
+        {icon}
+        {!collapsed && <span>{label}</span>}
+      </Button>
+    );
+  }
+
   return (
     <Link to={to}>
       <Button
