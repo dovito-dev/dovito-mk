@@ -42,7 +42,7 @@ const NavItem: React.FC<NavItemProps> = ({
     return (
       <Button
         variant="ghost"
-        className={`w-full flex justify-between items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
+        className={`w-full flex justify-center items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : "justify-between"}`}
         onClick={onToggleSubMenu}
       >
         <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ const NavItem: React.FC<NavItemProps> = ({
     return (
       <Button
         variant="ghost"
-        className={`w-full flex justify-center items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
+        className={`w-full flex justify-center items-center mb-1 rounded-xl ${activeClasses} px-2`}
         onClick={handleClick}
       >
         {icon}
@@ -70,7 +70,7 @@ const NavItem: React.FC<NavItemProps> = ({
     <Link to={to}>
       <Button
         variant="ghost"
-        className={`w-full flex ${collapsed ? "justify-center" : "justify-start"} items-center gap-2 mb-1 rounded-xl ${activeClasses} ${collapsed ? "px-2" : ""}`}
+        className={`w-full flex justify-start items-center gap-2 mb-1 rounded-xl ${activeClasses}`}
       >
         {icon}
         {!collapsed && <span>{label}</span>}
