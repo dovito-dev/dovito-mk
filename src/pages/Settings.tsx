@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { CreditCard, User, Link } from 'lucide-react';
+import { CreditCard, User, Link, Mail } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -177,12 +178,42 @@ const BillingSettings: React.FC = () => {
 
 const ConnectionSettings: React.FC = () => {
   const connectedAccounts = [
-    { id: 'google', name: 'Google', connected: true, icon: '🔵' },
-    { id: 'outlook', name: 'Microsoft Outlook', connected: false, icon: '🔷' },
-    { id: 'instagram', name: 'Instagram', connected: false, icon: '📸' },
-    { id: 'facebook', name: 'Facebook', connected: true, icon: '👤' },
-    { id: 'linkedin', name: 'LinkedIn', connected: false, icon: '💼' },
-    { id: 'twitter', name: 'X (Twitter)', connected: false, icon: '✖️' },
+    { 
+      id: 'google', 
+      name: 'Google', 
+      connected: true, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+    },
+    { 
+      id: 'outlook', 
+      name: 'Microsoft Outlook', 
+      connected: false, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg"
+    },
+    { 
+      id: 'instagram', 
+      name: 'Instagram', 
+      connected: false, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
+    },
+    { 
+      id: 'facebook', 
+      name: 'Facebook', 
+      connected: true, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+    },
+    { 
+      id: 'linkedin', 
+      name: 'LinkedIn', 
+      connected: false, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+    },
+    { 
+      id: 'twitter', 
+      name: 'X (Twitter)', 
+      connected: false, 
+      iconPath: "https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+    },
   ];
 
   return (
@@ -197,7 +228,12 @@ const ConnectionSettings: React.FC = () => {
         {connectedAccounts.map((account) => (
           <div key={account.id} className="flex items-center justify-between p-4 border rounded-md">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{account.icon}</span>
+              <Avatar className="h-10 w-10 bg-white">
+                <AvatarImage src={account.iconPath} alt={account.name} className="p-1" />
+                <AvatarFallback className="bg-muted">
+                  {account.name.substring(0, 2)}
+                </AvatarFallback>
+              </Avatar>
               <div>
                 <p className="font-medium">{account.name}</p>
                 <p className="text-sm text-muted-foreground">
