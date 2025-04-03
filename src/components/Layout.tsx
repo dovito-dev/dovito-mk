@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, FileText, Home, List, Mail, Mic, Share2 } from 'lucide-react';
+import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen } from 'lucide-react';
 
 type NavItemProps = {
   to: string;
@@ -119,6 +119,16 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               
               {isBrandBriefsOpen && (
                 <div className="pl-6 space-y-1">
+                  <Link to="/brand-briefs">
+                    <Button
+                      variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
+                      className="w-full flex justify-start gap-2 mb-1 text-sm"
+                      size="sm"
+                    >
+                      <BookOpen className="h-4 w-4" />
+                      <span>Intro</span>
+                    </Button>
+                  </Link>
                   <Link to="/create">
                     <Button
                       variant={location.pathname === '/create' ? "default" : "ghost"}
