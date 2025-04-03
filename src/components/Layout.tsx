@@ -2,16 +2,43 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { FileText, Home, List } from 'lucide-react';
+import { ChevronDown, FileText, Home, List, Mail, Mic, Share2 } from 'lucide-react';
 
 type NavItemProps = {
   to: string;
   icon: React.ReactNode;
   label: string;
   active: boolean;
+  hasChildren?: boolean;
+  isOpen?: boolean;
+  onToggleSubMenu?: () => void;
 };
 
-const NavItem: React.FC<NavItemProps> = ({ to, icon, label, active }) => {
+const NavItem: React.FC<NavItemProps> = ({ 
+  to, 
+  icon, 
+  label, 
+  active, 
+  hasChildren = false,
+  isOpen = false,
+  onToggleSubMenu
+}) => {
+  if (hasChildren) {
+    return (
+      <Button
+        variant={active ? "default" : "ghost"}
+        className={`w-full flex justify-between items-center mb-1 ${active ? "" : "hover:bg-muted"}`}
+        onClick={onToggleSubMenu}
+      >
+        <div className="flex items-center gap-2">
+          {icon}
+          <span>{label}</span>
+        </div>
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </Button>
+    );
+  }
+  
   return (
     <Link to={to}>
       <Button
@@ -27,6 +54,16 @@ const NavItem: React.FC<NavItemProps> = ({ to, icon, label, active }) => {
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const [isBrandBriefsOpen, setBrandBriefsOpen] = React.useState(
+    location.pathname.startsWith('/brand-briefs') || 
+    location.pathname === '/create' || 
+    location.pathname === '/dashboard'
+  );
+  
+  const isBrandBriefsActive = 
+    location.pathname.startsWith('/brand-briefs') || 
+    location.pathname === '/create' || 
+    location.pathname === '/dashboard';
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,7 +76,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Link to="/" className={`text-sm font-medium ${location.pathname === '/' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Home
             </Link>
-            <Link to="/brand-briefs" className={`text-sm font-medium ${location.pathname.startsWith('/brand-briefs') ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+            <Link to="/brand-briefs" className={`text-sm font-medium ${isBrandBriefsActive ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Brand Briefs
             </Link>
             <Link to="/email-copywriter" className={`text-sm font-medium ${location.pathname === '/email-copywriter' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
@@ -67,23 +104,62 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               label="Home"
               active={location.pathname === '/'}
             />
+            
+            {/* Brand Briefs with sub-menu */}
+            <div className="space-y-1">
+              <NavItem 
+                to="/brand-briefs"
+                icon={<FileText className="h-5 w-5" />}
+                label="Brand Briefs"
+                active={isBrandBriefsActive}
+                hasChildren={true}
+                isOpen={isBrandBriefsOpen}
+                onToggleSubMenu={() => setBrandBriefsOpen(!isBrandBriefsOpen)}
+              />
+              
+              {isBrandBriefsOpen && (
+                <div className="pl-6 space-y-1">
+                  <Link to="/create">
+                    <Button
+                      variant={location.pathname === '/create' ? "default" : "ghost"}
+                      className="w-full flex justify-start gap-2 mb-1 text-sm"
+                      size="sm"
+                    >
+                      <FileText className="h-4 w-4" />
+                      <span>Create Brief</span>
+                    </Button>
+                  </Link>
+                  <Link to="/dashboard">
+                    <Button
+                      variant={location.pathname === '/dashboard' ? "default" : "ghost"}
+                      className="w-full flex justify-start gap-2 mb-1 text-sm"
+                      size="sm"
+                    >
+                      <List className="h-4 w-4" />
+                      <span>My Briefs</span>
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+            
             <NavItem 
-              to="/brand-briefs"
-              icon={<FileText className="h-5 w-5" />}
-              label="Brand Briefs"
-              active={location.pathname.startsWith('/brand-briefs')}
+              to="/email-copywriter"
+              icon={<Mail className="h-5 w-5" />}
+              label="Email Copywriter"
+              active={location.pathname === '/email-copywriter'}
             />
             <NavItem 
-              to="/create"
-              icon={<FileText className="h-5 w-5" />}
-              label="Create Brief"
-              active={location.pathname === '/create'}
+              to="/agent-voice"
+              icon={<Mic className="h-5 w-5" />}
+              label="Agent Voice"
+              active={location.pathname === '/agent-voice'}
             />
             <NavItem 
-              to="/dashboard"
-              icon={<List className="h-5 w-5" />}
-              label="My Briefs"
-              active={location.pathname === '/dashboard'}
+              to="/social-media"
+              icon={<Share2 className="h-5 w-5" />}
+              label="Social Media"
+              active={location.pathname === '/social-media'}
             />
           </nav>
         </aside>
