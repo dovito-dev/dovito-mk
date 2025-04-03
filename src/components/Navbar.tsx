@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import ThemeToggle from './ThemeToggle';
 
 type NavbarProps = {
   location: {
@@ -46,7 +45,6 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
               Social Media
             </Link>
           </nav>
-          <ThemeToggle />
           <Link to="/get-started">
             <Button size="sm" className="ml-4 bg-brand-softPurple text-brand-purple hover:bg-brand-softPurple/80 rounded-full px-6">
               Get Started

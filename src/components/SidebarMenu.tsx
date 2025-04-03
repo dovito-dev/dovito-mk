@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
+import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
 import SidebarToggle from './SidebarToggle';
 import ThemeToggle from './ThemeToggle';
 import NavItem from './NavItem';
@@ -226,7 +226,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             collapsed={sidebarCollapsed}
             toggleSidebar={sidebarCollapsed ? toggleSidebar : undefined}
           />
-          <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-start'} mt-2`}>
+          <div className={`flex ${sidebarCollapsed ? 'justify-center' : 'justify-between items-center'} mt-4 px-2`}>
+            {!sidebarCollapsed && <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Theme</span>}
             <ThemeToggle />
           </div>
         </div>
