@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
             </Link>
           </nav>
           <Link to="/get-started">
-            <Button size="sm" className="ml-4 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md">
+            <Button size="sm" className="ml-4 bg-secondary text-white hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md">
               Get Started
             </Button>
           </Link>
