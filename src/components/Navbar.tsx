@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
     location.pathname.startsWith('/email/');
 
   return (
-    <header className="border-b border-white/20 bg-white/70 backdrop-blur-sm dark:bg-gray-900/70 dark:border-gray-800/30">
+    <header className="border-b border-white/20 bg-white/70 backdrop-blur-sm dark:bg-gray-900/70 dark:border-gray-800/30 shadow-sm">
       <div className="flex justify-between items-center px-6 py-3">
         <Link to="/" className="flex items-center">
           <img src="/lovable-uploads/7a9c88d6-ba2f-4247-89c5-ae6e8fc600d9.png" alt="mk.dovito.com" className="h-8" />
@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
             </Link>
           </nav>
           <Link to="/get-started">
-            <Button size="sm" className="ml-4 bg-brand-softPurple text-brand-purple hover:bg-brand-softPurple/80 rounded-full px-6">
+            <Button size="sm" className="ml-4 bg-brand-softPurple text-brand-purple hover:bg-brand-softPurple/80 rounded-full px-6 shadow-sm hover:shadow-md">
               Get Started
             </Button>
           </Link>
