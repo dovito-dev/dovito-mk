@@ -38,7 +38,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   const { isPaying, setIsPaying } = useSubscription();
 
   return (
-    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-white/90 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:flex md:flex-col fixed h-full top-0 pt-[64px]`}>
+    <aside className={`${sidebarCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 border-r bg-gray-100 dark:bg-gray-800/90 dark:border-gray-700 p-4 hidden md:flex md:flex-col fixed h-full top-0 pt-[64px]`}>
       <div className="flex justify-end mb-2">
         <SidebarToggle collapsed={sidebarCollapsed} toggleCollapsed={toggleSidebar} />
       </div>
@@ -73,7 +73,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               <div className="pl-6 space-y-1">
                 <Link to="/brand-briefs">
                   <Button
-                    variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
+                    variant={location.pathname === '/brand-briefs' ? "secondary" : "ghost"}
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
@@ -83,7 +83,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/create">
                   <Button
-                    variant={location.pathname === '/create' ? "default" : "ghost"}
+                    variant={location.pathname === '/create' ? "secondary" : "ghost"}
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
@@ -93,7 +93,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/dashboard">
                   <Button
-                    variant={location.pathname === '/dashboard' ? "default" : "ghost"}
+                    variant={location.pathname === '/dashboard' ? "secondary" : "ghost"}
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
@@ -105,12 +105,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             )}
             
             {isBrandBriefsOpen && sidebarCollapsed && (
-              <div className="space-y-1 flex flex-col items-center">
+              <div className="space-y-1 flex flex-col items-center px-1">
                 <Link to="/brand-briefs">
                   <Button
-                    variant={location.pathname === '/brand-briefs' ? "default" : "ghost"}
+                    variant={location.pathname === '/brand-briefs' ? "secondary" : "ghost"}
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={toggleSidebar}
                   >
                     <BookOpen className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -118,9 +118,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/create">
                   <Button
-                    variant={location.pathname === '/create' ? "default" : "ghost"}
+                    variant={location.pathname === '/create' ? "secondary" : "ghost"}
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={toggleSidebar}
                   >
                     <FileText className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -128,9 +128,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/dashboard">
                   <Button
-                    variant={location.pathname === '/dashboard' ? "default" : "ghost"}
+                    variant={location.pathname === '/dashboard' ? "secondary" : "ghost"}
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={toggleSidebar}
                   >
                     <List className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -158,7 +158,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               <div className="pl-6 space-y-1">
                 <Link to="/email-copywriter">
                   <Button
-                    variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
+                    variant={location.pathname === '/email-copywriter' ? "secondary" : "ghost"}
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
@@ -168,7 +168,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/generated-emails">
                   <Button
-                    variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
+                    variant={location.pathname === '/generated-emails' ? "secondary" : "ghost"}
                     className="w-full flex justify-start gap-2 mb-1 text-sm"
                     size="sm"
                   >
@@ -180,12 +180,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             )}
             
             {isEmailsOpen && sidebarCollapsed && (
-              <div className="space-y-1 flex flex-col items-center">
+              <div className="space-y-1 flex flex-col items-center px-1">
                 <Link to="/email-copywriter">
                   <Button
-                    variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
+                    variant={location.pathname === '/email-copywriter' ? "secondary" : "ghost"}
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={toggleSidebar}
                   >
                     <Mail className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -193,9 +193,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 </Link>
                 <Link to="/generated-emails">
                   <Button
-                    variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
+                    variant={location.pathname === '/generated-emails' ? "secondary" : "ghost"}
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={toggleSidebar}
                   >
                     <Send className="h-4 w-4 text-gray-600 dark:text-gray-400" />
@@ -231,21 +231,21 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           {!sidebarCollapsed ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4 text-yellow-600" />
-                <span className="text-xs font-medium text-yellow-800">Developer Mode</span>
+                <CreditCard className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Developer Mode</span>
               </div>
               <Switch 
                 id="subscription-mode" 
                 checked={isPaying}
                 onCheckedChange={setIsPaying}
-                className="data-[state=checked]:bg-yellow-600"
+                className="data-[state=checked]:bg-gray-600 dark:data-[state=checked]:bg-gray-400"
               />
             </div>
           ) : (
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-yellow-600"
+              className="h-9 w-9 text-gray-600 dark:text-gray-400"
               onClick={() => toggleSidebar()}
             >
               <CreditCard className="h-5 w-5" />
@@ -259,8 +259,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             <Link to="/settings" className="w-full">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Settings className="h-4 w-4 text-indigo-600" />
-                  <span className="text-xs font-medium text-indigo-800">Settings</span>
+                  <Settings className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Settings</span>
                 </div>
               </div>
             </Link>
@@ -269,7 +269,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-indigo-600"
+                className="h-9 w-9 text-gray-600 dark:text-gray-400"
               >
                 <Settings className="h-5 w-5" />
               </Button>
@@ -282,8 +282,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           {!sidebarCollapsed ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Moon className="h-4 w-4 text-indigo-600" />
-                <span className="text-xs font-medium text-indigo-800">Theme</span>
+                <Moon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Theme</span>
               </div>
               <ThemeToggle collapsed={false} />
             </div>
