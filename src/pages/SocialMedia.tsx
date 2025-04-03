@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Instagram, Facebook, Twitter as X, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, X, Linkedin } from 'lucide-react';
 
 const SocialMedia = () => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['all']);
