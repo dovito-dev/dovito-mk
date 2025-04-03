@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { CreditCard, User, Link, Mail } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -13,45 +14,49 @@ const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="container mx-auto py-6 max-w-3xl">
       <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
       
-      <Tabs defaultValue="profile" value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="profile" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            <span>Profile</span>
-          </TabsTrigger>
-          <TabsTrigger value="billing" className="flex items-center gap-2">
-            <CreditCard className="h-4 w-4" />
-            <span>Billing</span>
-          </TabsTrigger>
-          <TabsTrigger value="connections" className="flex items-center gap-2">
-            <Link className="h-4 w-4" />
-            <span>Connections</span>
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="profile">
-          <ProfileSettings />
-        </TabsContent>
-        
-        <TabsContent value="billing">
-          <BillingSettings />
-        </TabsContent>
-        
-        <TabsContent value="connections">
-          <ConnectionSettings />
-        </TabsContent>
-      </Tabs>
+      <Card className="border-0 shadow-sm">
+        <Tabs defaultValue="profile" value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-2 p-1 bg-muted/50">
+            <TabsTrigger value="profile" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              <span>Profile</span>
+            </TabsTrigger>
+            <TabsTrigger value="billing" className="flex items-center gap-2">
+              <CreditCard className="h-4 w-4" />
+              <span>Billing</span>
+            </TabsTrigger>
+            <TabsTrigger value="connections" className="flex items-center gap-2">
+              <Link className="h-4 w-4" />
+              <span>Connections</span>
+            </TabsTrigger>
+          </TabsList>
+          
+          <ScrollArea className="h-[75vh]">
+            <TabsContent value="profile">
+              <ProfileSettings />
+            </TabsContent>
+            
+            <TabsContent value="billing">
+              <BillingSettings />
+            </TabsContent>
+            
+            <TabsContent value="connections">
+              <ConnectionSettings />
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+      </Card>
     </div>
   );
 };
 
 const ProfileSettings: React.FC = () => {
   return (
-    <Card>
-      <CardHeader>
+    <div className="px-4 py-2">
+      <CardHeader className="px-2">
         <CardTitle>Profile Information</CardTitle>
         <CardDescription>
           Update your profile information. This will be used across the platform.
@@ -103,21 +108,21 @@ const ProfileSettings: React.FC = () => {
         
         <Button className="mt-4">Save Changes</Button>
       </CardContent>
-    </Card>
+    </div>
   );
 };
 
 const BillingSettings: React.FC = () => {
   return (
-    <Card>
-      <CardHeader>
+    <div className="px-4 py-2">
+      <CardHeader className="px-2">
         <CardTitle>Subscription Management</CardTitle>
         <CardDescription>
           Manage your current subscription and billing information
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="bg-muted p-4 rounded-md">
+        <div className="bg-muted/50 p-4 rounded-md">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-medium">Current Plan</h3>
             <span className="bg-primary/20 text-primary px-2 py-1 rounded text-sm">Active</span>
@@ -136,7 +141,7 @@ const BillingSettings: React.FC = () => {
         
         <div>
           <h3 className="font-medium mb-4">Payment Method</h3>
-          <div className="flex items-center gap-4 bg-muted p-4 rounded-md">
+          <div className="flex items-center gap-4 bg-muted/50 p-4 rounded-md">
             <CreditCard className="h-5 w-5" />
             <div>
               <p className="font-medium">•••• •••• •••• 4242</p>
@@ -172,7 +177,7 @@ const BillingSettings: React.FC = () => {
           </div>
         </div>
       </CardContent>
-    </Card>
+    </div>
   );
 };
 
@@ -217,16 +222,16 @@ const ConnectionSettings: React.FC = () => {
   ];
 
   return (
-    <Card>
-      <CardHeader>
+    <div className="px-4 py-2">
+      <CardHeader className="px-2">
         <CardTitle>Connected Accounts</CardTitle>
         <CardDescription>
           Connect your accounts to enable additional features and integrations
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4">
         {connectedAccounts.map((account) => (
-          <div key={account.id} className="flex items-center justify-between p-4 border rounded-md">
+          <div key={account.id} className="flex items-center justify-between p-4 border rounded-md bg-background hover:bg-muted/20 transition-colors">
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10 bg-white">
                 <AvatarImage src={account.iconPath} alt={account.name} className="p-1" />
@@ -241,13 +246,13 @@ const ConnectionSettings: React.FC = () => {
                 </p>
               </div>
             </div>
-            <Button variant={account.connected ? "outline" : "default"}>
+            <Button size="sm" variant={account.connected ? "outline" : "default"}>
               {account.connected ? 'Disconnect' : 'Connect'}
             </Button>
           </div>
         ))}
       </CardContent>
-    </Card>
+    </div>
   );
 };
 
