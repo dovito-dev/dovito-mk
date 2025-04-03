@@ -15,6 +15,8 @@ import SocialMedia from "./pages/SocialMedia";
 import CreateBrief from "./pages/CreateBrief";
 import Dashboard from "./pages/Dashboard";
 import BriefDetail from "./pages/BriefDetail";
+import GetStarted from "./pages/GetStarted";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/create" element={<Layout><CreateBrief /></Layout>} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/brief/:id" element={<Layout><BriefDetail /></Layout>} />
+          <Route path="/get-started" element={<Layout><GetStarted /></Layout>} />
+          <Route path="/settings" element={<Layout><Settings /></Layout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send } from 'lucide-react';
+import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings } from 'lucide-react';
 
 type NavItemProps = {
   to: string;
@@ -98,9 +99,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Link to="/social-media" className={`text-sm font-medium ${location.pathname === '/social-media' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Social Media
             </Link>
-            <Button size="sm" className="ml-4 gradient-bg">
-              Get Started
-            </Button>
+            <Link to="/get-started">
+              <Button size="sm" className="ml-4 gradient-bg">
+                Get Started
+              </Button>
+            </Link>
           </nav>
         </div>
       </header>
@@ -213,6 +216,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               label="Social Media"
               active={location.pathname === '/social-media'}
             />
+            
+            <div className="pt-6 mt-6 border-t border-border">
+              <NavItem 
+                to="/settings"
+                icon={<Settings className="h-5 w-5" />}
+                label="Settings"
+                active={location.pathname === '/settings'}
+              />
+            </div>
           </nav>
         </aside>
         
