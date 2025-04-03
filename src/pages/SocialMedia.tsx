@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Twitter as X, Linkedin } from 'lucide-react';
 
 const SocialMedia = () => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['all']);
@@ -39,7 +39,7 @@ const SocialMedia = () => {
             <Facebook className="text-white h-5 w-5" />
           </div>
           <div className="w-10 h-10 rounded-full bg-[#000000] flex items-center justify-center">
-            <Twitter className="text-white h-5 w-5" />
+            <X className="text-white h-5 w-5" />
           </div>
           <div className="w-10 h-10 rounded-full bg-[#0A66C2] flex items-center justify-center">
             <Linkedin className="text-white h-5 w-5" />
@@ -84,7 +84,7 @@ const SocialMedia = () => {
             className={isPlatformSelected('twitter') ? "bg-[#000000] hover:bg-[#333333]" : ""}
             onClick={() => togglePlatform('twitter')}
           >
-            <Twitter className="h-4 w-4 mr-2" /> X
+            <X className="h-4 w-4 mr-2" /> X
           </Button>
           
           <Button
