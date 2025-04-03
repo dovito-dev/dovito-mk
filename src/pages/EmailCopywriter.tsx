@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, ChevronDown } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import {
   Select,
@@ -11,9 +13,106 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEmailStore } from '@/store/emailStore';
+import { v4 as uuidv4 } from 'uuid';
 
 const EmailCopywriter = () => {
   const [open, setOpen] = useState(false);
+  const [sampleEmail, setSampleEmail] = useState('');
+  const [website, setWebsite] = useState('');
+  const [recipientName, setRecipientName] = useState('');
+  const [recipientEmail, setRecipientEmail] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { addEmail } = useEmailStore();
+  const navigate = useNavigate();
+  
+  const handleGenerate = () => {
+    setIsGenerating(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      const newEmail = {
+        id: uuidv4(),
+        title: `Email to ${recipientName} - ${purposeToTitle(purpose)}`,
+        recipient: {
+          name: recipientName,
+          email: recipientEmail
+        },
+        company: website?.replace(/https?:\/\/(www\.)?/, '').split('/')[0] || '',
+        purpose: purpose,
+        content: generateEmailContent(purpose, recipientName, website),
+        createdAt: new Date().toISOString()
+      };
+      
+      addEmail(newEmail);
+      setIsGenerating(false);
+      navigate(`/email/${newEmail.id}`);
+    }, 1500);
+  };
+  
+  const purposeToTitle = (purposeKey: string): string => {
+    const purposeMap: Record<string, string> = {
+      'prospect-outreach': 'Prospect Outreach',
+      'lead-nurturing': 'Lead Nurturing',
+      'promotions': 'Special Offer',
+      'follow-up': 'Follow-Up',
+      'event-announcement': 'Event Announcement',
+      'welcome': 'Welcome Message',
+      're-engagement': 'Re-Engagement',
+      'upsell': 'Product Recommendation',
+      'partnerships': 'Partnership Proposal',
+      'newsletter': 'Newsletter'
+    };
+    
+    return purposeMap[purposeKey] || 'Email';
+  };
+  
+  const generateEmailContent = (purpose: string, name: string, website: string): string => {
+    // This is a placeholder - in a real implementation, you'd call an AI service or use templates
+    const domain = website?.replace(/https?:\/\/(www\.)?/, '').split('/')[0] || 'your company';
+    
+    // Simple template based on purpose
+    switch(purpose) {
+      case 'prospect-outreach':
+        return `Dear ${name},
+
+I hope this email finds you well. I recently came across ${domain} and was impressed by your work in the industry.
+
+Our company specializes in helping businesses like yours improve their processes and achieve better results. I'd love to schedule a brief call to discuss how we might be able to support your goals.
+
+Would you have 15 minutes for a quick conversation next week?
+
+Looking forward to connecting,
+
+Your Name
+`;
+      case 'follow-up':
+        return `Dear ${name},
+
+I wanted to follow up on our previous conversation about how our services could benefit ${domain}.
+
+Have you had a chance to review the materials I sent over? I'd be happy to answer any questions you might have or provide additional information.
+
+Let me know what works best for your schedule if you'd like to discuss further.
+
+Best regards,
+
+Your Name
+`;
+      default:
+        return `Dear ${name},
+
+Thank you for your interest in our services. I believe we can provide significant value to ${domain} based on your specific needs.
+
+I'd love to schedule a time to discuss how we can work together. Please let me know when would be convenient for you.
+
+Looking forward to our conversation,
+
+Your Name
+`;
+    }
+  };
   
   return (
     <div className="max-w-4xl mx-auto">
@@ -35,6 +134,8 @@ const EmailCopywriter = () => {
               id="email" 
               placeholder="Paste an existing email here to analyze its style..."
               className="w-full"
+              value={sampleEmail}
+              onChange={(e) => setSampleEmail(e.target.value)}
             />
             <p className="text-sm text-muted-foreground mt-1">
               Paste a sample email to help generate copy that matches your existing style.
@@ -47,27 +148,48 @@ const EmailCopywriter = () => {
               id="website" 
               placeholder="https://your-company.com"
               className="w-full"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
             />
             <p className="text-sm text-muted-foreground mt-1">
               Enter the URL of the company you're sending the email to. This helps generate relevant messaging.
             </p>
           </div>
           
-          <div>
-            <label htmlFor="name" className="block font-medium mb-2">Recipient's Full Name</label>
-            <Input 
-              id="name" 
-              placeholder="John Doe"
-              className="w-full"
-            />
-            <p className="text-sm text-muted-foreground mt-1">
-              The full name of the person you're emailing.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="name" className="block font-medium mb-2">Recipient's Full Name</label>
+              <Input 
+                id="name" 
+                placeholder="John Doe"
+                className="w-full"
+                value={recipientName}
+                onChange={(e) => setRecipientName(e.target.value)}
+              />
+              <p className="text-sm text-muted-foreground mt-1">
+                The full name of the person you're emailing.
+              </p>
+            </div>
+            
+            <div>
+              <label htmlFor="recipientEmail" className="block font-medium mb-2">Recipient's Email</label>
+              <Input 
+                id="recipientEmail" 
+                type="email"
+                placeholder="john.doe@example.com"
+                className="w-full"
+                value={recipientEmail}
+                onChange={(e) => setRecipientEmail(e.target.value)}
+              />
+              <p className="text-sm text-muted-foreground mt-1">
+                The email address of the person you're contacting.
+              </p>
+            </div>
           </div>
           
           <div>
             <label htmlFor="purpose" className="block font-medium mb-2">Email Purpose</label>
-            <Select onOpenChange={setOpen}>
+            <Select onOpenChange={setOpen} value={purpose} onValueChange={setPurpose}>
               <SelectTrigger 
                 className={`w-full ${open ? 'border-primary ring-2 ring-primary/20 bg-background' : 'border-input bg-background'} transition-all duration-200`}
               >
@@ -92,7 +214,13 @@ const EmailCopywriter = () => {
           </div>
           
           <div className="pt-4">
-            <Button className="w-full gradient-bg">Generate Email Copy</Button>
+            <Button 
+              className="w-full gradient-bg" 
+              onClick={handleGenerate}
+              disabled={!recipientName || !recipientEmail || !purpose || isGenerating}
+            >
+              {isGenerating ? "Generating..." : "Generate Email Copy"}
+            </Button>
           </div>
         </div>
       </Card>

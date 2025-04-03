@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen } from 'lucide-react';
+import { ChevronDown, FileText, Home, List, Mail, Mic, Share2, BookOpen, Send } from 'lucide-react';
 
 type NavItemProps = {
   to: string;
@@ -60,10 +59,21 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     location.pathname === '/dashboard'
   );
   
+  const [isEmailsOpen, setEmailsOpen] = React.useState(
+    location.pathname === '/email-copywriter' || 
+    location.pathname === '/generated-emails' || 
+    location.pathname.startsWith('/email/')
+  );
+  
   const isBrandBriefsActive = 
     location.pathname.startsWith('/brand-briefs') || 
     location.pathname === '/create' || 
     location.pathname === '/dashboard';
+    
+  const isEmailsActive = 
+    location.pathname === '/email-copywriter' || 
+    location.pathname === '/generated-emails' || 
+    location.pathname.startsWith('/email/');
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -79,7 +89,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Link to="/brand-briefs" className={`text-sm font-medium ${isBrandBriefsActive ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Brand Briefs
             </Link>
-            <Link to="/email-copywriter" className={`text-sm font-medium ${location.pathname === '/email-copywriter' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
+            <Link to="/email-copywriter" className={`text-sm font-medium ${isEmailsActive ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
               Email Copywriter
             </Link>
             <Link to="/agent-voice" className={`text-sm font-medium ${location.pathname === '/agent-voice' ? 'text-brand-blue' : 'text-gray-600 hover:text-gray-900'}`}>
@@ -153,12 +163,44 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               )}
             </div>
             
-            <NavItem 
-              to="/email-copywriter"
-              icon={<Mail className="h-5 w-5" />}
-              label="Email Copywriter"
-              active={location.pathname === '/email-copywriter'}
-            />
+            {/* Email Copywriter with sub-menu */}
+            <div className="space-y-1">
+              <NavItem 
+                to="/email-copywriter"
+                icon={<Mail className="h-5 w-5" />}
+                label="Email Copywriter"
+                active={isEmailsActive}
+                hasChildren={true}
+                isOpen={isEmailsOpen}
+                onToggleSubMenu={() => setEmailsOpen(!isEmailsOpen)}
+              />
+              
+              {isEmailsOpen && (
+                <div className="pl-6 space-y-1">
+                  <Link to="/email-copywriter">
+                    <Button
+                      variant={location.pathname === '/email-copywriter' ? "default" : "ghost"}
+                      className="w-full flex justify-start gap-2 mb-1 text-sm"
+                      size="sm"
+                    >
+                      <Mail className="h-4 w-4" />
+                      <span>Create Email</span>
+                    </Button>
+                  </Link>
+                  <Link to="/generated-emails">
+                    <Button
+                      variant={location.pathname === '/generated-emails' ? "default" : "ghost"}
+                      className="w-full flex justify-start gap-2 mb-1 text-sm"
+                      size="sm"
+                    >
+                      <Send className="h-4 w-4" />
+                      <span>My Emails</span>
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+            
             <NavItem 
               to="/agent-voice"
               icon={<Mic className="h-5 w-5" />}

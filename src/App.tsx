@@ -8,6 +8,8 @@ import Layout from "@/components/Layout";
 import Home from "./pages/Home";
 import BrandBriefs from "./pages/BrandBriefs";
 import EmailCopywriter from "./pages/EmailCopywriter";
+import GeneratedEmails from "./pages/GeneratedEmails";
+import EmailDetail from "./pages/EmailDetail";
 import AgentVoice from "./pages/AgentVoice";
 import SocialMedia from "./pages/SocialMedia";
 import CreateBrief from "./pages/CreateBrief";
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/brand-briefs" element={<Layout><BrandBriefs /></Layout>} />
           <Route path="/email-copywriter" element={<Layout><EmailCopywriter /></Layout>} />
+          <Route path="/generated-emails" element={<Layout><GeneratedEmails /></Layout>} />
+          <Route path="/email/:id" element={<Layout><EmailDetail /></Layout>} />
           <Route path="/agent-voice" element={<Layout><AgentVoice /></Layout>} />
           <Route path="/social-media" element={<Layout><SocialMedia /></Layout>} />
           <Route path="/create" element={<Layout><CreateBrief /></Layout>} />
