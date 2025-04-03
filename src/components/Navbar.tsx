@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
 
   return (
     <header className="border-b bg-white dark:bg-gray-900 dark:border-gray-800">
-      <div className="container mx-auto flex justify-between items-center p-4">
+      <div className="flex justify-between items-center p-4">
         <Link to="/" className="flex items-center">
           <img src="/lovable-uploads/7a9c88d6-ba2f-4247-89c5-ae6e8fc600d9.png" alt="mk.dovito.com" className="h-8" />
         </Link>
