@@ -59,7 +59,9 @@ const SocialMedia = () => {
           <div className="flex flex-wrap gap-3 mb-8">
             <Button
               variant={isPlatformSelected('all') ? "default" : "outline"}
-              className={isPlatformSelected('all') ? "bg-brand-softPurple text-brand-purple hover:bg-brand-softPurple/80 rounded-full" : "rounded-full"}
+              className={isPlatformSelected('all') 
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:bg-gradient-to-r hover:from-indigo-700 hover:to-purple-700 rounded-full" 
+                : "rounded-full"}
               onClick={() => togglePlatform('all')}
             >
               All Platforms
@@ -67,7 +69,9 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('instagram') ? "default" : "outline"}
-              className={isPlatformSelected('instagram') ? "bg-[#E1306C] hover:bg-[#C13584] rounded-full" : "rounded-full"}
+              className={isPlatformSelected('instagram') 
+                ? "bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white hover:from-[#E1306C] hover:to-[#C13584] rounded-full" 
+                : "rounded-full"}
               onClick={() => togglePlatform('instagram')}
             >
               <Instagram className="h-4 w-4 mr-2" /> Instagram
@@ -75,7 +79,9 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('facebook') ? "default" : "outline"}
-              className={isPlatformSelected('facebook') ? "bg-[#1877F2] hover:bg-[#166FE5] rounded-full" : "rounded-full"}
+              className={isPlatformSelected('facebook') 
+                ? "bg-[#1877F2] hover:bg-[#166FE5] text-white rounded-full" 
+                : "rounded-full"}
               onClick={() => togglePlatform('facebook')}
             >
               <Facebook className="h-4 w-4 mr-2" /> Facebook
@@ -83,7 +89,9 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('twitter') ? "default" : "outline"}
-              className={isPlatformSelected('twitter') ? "bg-[#000000] hover:bg-[#333333] rounded-full" : "rounded-full"}
+              className={isPlatformSelected('twitter') 
+                ? "bg-black hover:bg-neutral-800 text-white rounded-full" 
+                : "rounded-full"}
               onClick={() => togglePlatform('twitter')}
             >
               <X className="h-4 w-4 mr-2" /> X
@@ -91,7 +99,9 @@ const SocialMedia = () => {
             
             <Button
               variant={isPlatformSelected('linkedin') ? "default" : "outline"}
-              className={isPlatformSelected('linkedin') ? "bg-[#0A66C2] hover:bg-[#004182] rounded-full" : "rounded-full"}
+              className={isPlatformSelected('linkedin') 
+                ? "bg-[#0A66C2] hover:bg-[#004182] text-white rounded-full" 
+                : "rounded-full"}
               onClick={() => togglePlatform('linkedin')}
             >
               <Linkedin className="h-4 w-4 mr-2" /> LinkedIn
