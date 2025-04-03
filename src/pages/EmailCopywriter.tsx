@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SubscriptionGate from '@/components/SubscriptionGate';
 import { useSubscription } from '@/context/SubscriptionContext';
@@ -218,7 +217,8 @@ Your Name
             
             <div className="pt-4">
               <Button 
-                className="w-full gradient-bg" 
+                variant="default"
+                className="w-full" 
                 onClick={handleGenerate}
                 disabled={!recipientName || !recipientEmail || !purpose || isGenerating}
               >

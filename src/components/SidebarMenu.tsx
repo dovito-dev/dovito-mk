@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings, CreditCard } from 'lucide-react';
+import { FileText, Home, List, Mail, Mic, Share2, BookOpen, Send, Settings, CreditCard, Moon } from 'lucide-react';
 import SidebarToggle from './SidebarToggle';
 import ThemeToggle from './ThemeToggle';
 import NavItem from './NavItem';
@@ -282,6 +282,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           {!sidebarCollapsed ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
+                <Moon className="h-4 w-4 text-indigo-600" />
                 <span className="text-xs font-medium text-indigo-800">Theme</span>
               </div>
               <ThemeToggle collapsed={false} />
