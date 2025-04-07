@@ -7,7 +7,7 @@ import fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/dovito-mk/',
+  base: '/',
   server: {
     host: "::",
     port: 8080,
