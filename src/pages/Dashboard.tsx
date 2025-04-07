@@ -133,7 +133,7 @@ const Dashboard = () => {
                       </p>
                       {brief.generated_brief && (
                         <div className="mt-2 prose dark:prose-invert prose-sm max-h-20 overflow-hidden">
-                          <ReactMarkdown>{brief.generated_brief.substring(0, 100)}...</ReactMarkdown>
+                          <ReactMarkdown>{brief.generated_brief.substring(0, 100) + '...'}</ReactMarkdown>
                         </div>
                       )}
                     </CardContent>
