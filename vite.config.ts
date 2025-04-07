@@ -29,6 +29,11 @@ export default defineConfig(({ mode }) => ({
           // Create it if it doesn't exist
           fs.writeFileSync('docs/.nojekyll', '');
         }
+
+        // Copy 404.html to ensure proper SPA handling
+        if (fs.existsSync('public/404.html')) {
+          fs.copyFileSync('public/404.html', 'docs/404.html');
+        }
       }
     }
   ].filter(Boolean),
