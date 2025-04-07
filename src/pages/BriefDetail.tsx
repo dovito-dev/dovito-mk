@@ -7,21 +7,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, Copy, Clock, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/context/AuthContext';
 import ReactMarkdown from 'react-markdown';
-
-type BrandBrief = {
-  id: string;
-  brief_title: string;
-  brand_name: string;
-  industry: string;
-  brief_type: string;
-  brief_content: string;
-  generated_brief: string | null;
-  created_at: string;
-};
+import { useBrandBrief } from '@/hooks/useBrandBriefs';
 
 const BriefDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,32 +17,8 @@ const BriefDetail = () => {
   const { toast } = useToast();
   const [copying, setCopying] = useState(false);
 
-  // Fetch brief from Supabase
-  const { data: brief, isLoading } = useQuery({
-    queryKey: ['brief', id],
-    queryFn: async (): Promise<BrandBrief | null> => {
-      if (!user || !id) return null;
-
-      const { data, error } = await supabase
-        .from('brand_briefs')
-        .select('*')
-        .eq('id', id)
-        .eq('user_id', user.id)
-        .single();
-
-      if (error) {
-        toast({
-          title: "Error fetching brief",
-          description: error.message,
-          variant: "destructive"
-        });
-        return null;
-      }
-
-      return data;
-    },
-    enabled: !!user && !!id,
-  });
+  // Fetch brief using our new hook
+  const { data: brief, isLoading } = useBrandBrief(id);
 
   if (isLoading) {
     return (
@@ -79,11 +43,19 @@ const BriefDetail = () => {
     try {
       setCopying(true);
       const contentToCopy = brief.generated_brief || brief.brief_content;
-      await navigator.clipboard.writeText(contentToCopy);
-      toast({
-        title: "Copied to clipboard",
-        description: "The brief content has been copied to your clipboard.",
-      });
+      if (contentToCopy) {
+        await navigator.clipboard.writeText(contentToCopy);
+        toast({
+          title: "Copied to clipboard",
+          description: "The brief content has been copied to your clipboard.",
+        });
+      } else {
+        toast({
+          title: "Nothing to copy",
+          description: "There is no content to copy.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       toast({
         title: "Failed to copy",
@@ -97,6 +69,15 @@ const BriefDetail = () => {
 
   const downloadBrief = () => {
     const contentToDownload = brief.generated_brief || brief.brief_content;
+    if (!contentToDownload) {
+      toast({
+        title: "Nothing to download",
+        description: "There is no content to download.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const element = document.createElement("a");
     const file = new Blob([contentToDownload], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
@@ -120,7 +101,7 @@ const BriefDetail = () => {
           <h1 className="text-3xl font-bold">{brief.brief_title}</h1>
           <div className="text-sm text-muted-foreground flex items-center">
             <Clock className="h-4 w-4 mr-1" />
-            {format(new Date(brief.created_at), 'MMM d, yyyy')}
+            {brief.created_at ? format(new Date(brief.created_at), 'MMM d, yyyy') : 'Unknown date'}
           </div>
         </div>
 

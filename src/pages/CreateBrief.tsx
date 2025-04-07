@@ -9,9 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
 import { useProfile } from '@/hooks/useProfile';
 import { useUserUsageStore } from '@/store/userUsageStore';
+import { createBrandBrief } from '@/hooks/useBrandBriefs';
 
 const CreateBrief = () => {
   const [title, setTitle] = useState('');
@@ -42,25 +42,14 @@ const CreateBrief = () => {
     setIsSubmitting(true);
 
     try {
-      // Insert the brief into Supabase
-      const { data, error } = await supabase
-        .from('brand_briefs')
-        .insert([
-          {
-            user_id: user.id,
-            brief_title: title,
-            brand_name: brandName,
-            industry,
-            brief_type: type,
-            brief_content: content,
-          }
-        ])
-        .select()
-        .single();
-
-      if (error) {
-        throw error;
-      }
+      // Insert the brief using our extracted function
+      await createBrandBrief(user.id, {
+        brief_title: title,
+        brand_name: brandName,
+        industry,
+        brief_type: type,
+        brief_content: content,
+      });
       
       // Increment the brief counter in local store for UI updates
       incrementBriefsCreated();

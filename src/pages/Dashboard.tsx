@@ -10,19 +10,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { LayoutList, LayoutGrid } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import ReactMarkdown from 'react-markdown';
-
-type BrandBrief = {
-  id: string;
-  brief_title: string;
-  brand_name: string;
-  industry: string;
-  brief_type: string;
-  created_at: string;
-  generated_brief: string | null;
-};
+import { useBrandBriefs, BrandBrief } from '@/hooks/useBrandBriefs';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -30,31 +18,8 @@ const Dashboard = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const { toast } = useToast();
   
-  // Fetch briefs from Supabase
-  const { data: briefs = [], isLoading } = useQuery({
-    queryKey: ['briefs', user?.id],
-    queryFn: async (): Promise<BrandBrief[]> => {
-      if (!user) return [];
-
-      const { data, error } = await supabase
-        .from('brand_briefs')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        toast({
-          title: "Error fetching briefs",
-          description: error.message,
-          variant: "destructive"
-        });
-        return [];
-      }
-
-      return data || [];
-    },
-    enabled: !!user,
-  });
+  // Use our new hook to fetch briefs
+  const { data: briefs = [], isLoading } = useBrandBriefs();
 
   // Calculate quota information
   const getQuotaDisplay = () => {
@@ -135,7 +100,7 @@ const Dashboard = () => {
                   <CardHeader className={viewMode === 'list' ? 'flex-1' : ''}>
                     <CardTitle>{brief.brief_title}</CardTitle>
                     <CardDescription>
-                      Created on {format(new Date(brief.created_at), 'MMMM d, yyyy')}
+                      Created on {brief.created_at ? format(new Date(brief.created_at), 'MMMM d, yyyy') : 'Unknown date'}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className={viewMode === 'list' ? 'flex items-center' : ''}>
