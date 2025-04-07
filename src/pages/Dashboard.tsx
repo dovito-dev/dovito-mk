@@ -4,18 +4,79 @@ import { Link } from 'react-router-dom';
 import SubscriptionGate from '@/components/SubscriptionGate';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { useBriefStore, type Brief } from '@/store/briefStore';
-import { useUserUsageStore } from '@/store/userUsageStore';
-import { useSubscription } from '@/context/SubscriptionContext';
+import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { LayoutList, LayoutGrid } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { useProfile } from '@/hooks/useProfile';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import ReactMarkdown from 'react-markdown';
+
+type BrandBrief = {
+  id: string;
+  brief_title: string;
+  brand_name: string;
+  industry: string;
+  brief_type: string;
+  created_at: string;
+  generated_brief: string | null;
+};
 
 const Dashboard = () => {
-  const { briefs } = useBriefStore();
-  const { briefsCreated, FREE_BRIEF_LIMIT, isFreeUsageAvailable } = useUserUsageStore();
-  const { isPaying } = useSubscription();
+  const { user } = useAuth();
+  const { data: profile } = useProfile();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const { toast } = useToast();
+  
+  // Fetch briefs from Supabase
+  const { data: briefs = [], isLoading } = useQuery({
+    queryKey: ['briefs', user?.id],
+    queryFn: async (): Promise<BrandBrief[]> => {
+      if (!user) return [];
+
+      const { data, error } = await supabase
+        .from('brand_briefs')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        toast({
+          title: "Error fetching briefs",
+          description: error.message,
+          variant: "destructive"
+        });
+        return [];
+      }
+
+      return data || [];
+    },
+    enabled: !!user,
+  });
+
+  // Calculate quota information
+  const getQuotaDisplay = () => {
+    if (!profile) return null;
+    
+    // If monthly_quota is null or undefined, user has unlimited quota
+    if (profile.monthly_quota === null || profile.monthly_quota === undefined) {
+      return null;
+    }
+    
+    const used = profile.used_quota || 0;
+    const total = profile.monthly_quota;
+    const planName = profile.plan_name || 'Free';
+    
+    return {
+      used,
+      total,
+      planName
+    };
+  };
+
+  const quotaInfo = getQuotaDisplay();
   
   return (
     <SubscriptionGate allowFreeTier={true}>
@@ -26,13 +87,12 @@ const Dashboard = () => {
             Manage and view all your created brand briefs in one place
           </p>
           
-          {!isPaying && (
+          {quotaInfo && (
             <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 rounded-md inline-block">
-              {isFreeUsageAvailable() ? (
-                <p>You have used {briefsCreated} of {FREE_BRIEF_LIMIT} free briefs</p>
-              ) : (
-                <p>You've reached your free limit. <Link to="/get-started" className="underline font-medium">Upgrade now</Link></p>
-              )}
+              <p>
+                You have used {quotaInfo.used} of {quotaInfo.total} 
+                {quotaInfo.planName === 'Free' ? ' free' : ''} briefs
+              </p>
             </div>
           )}
         </div>
@@ -54,7 +114,11 @@ const Dashboard = () => {
           </ToggleGroup>
         </div>
 
-        {briefs.length === 0 ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading your brand briefs...</p>
+          </div>
+        ) : briefs.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground mb-4">No briefs created yet</p>
             <Link to="/create">
@@ -69,15 +133,20 @@ const Dashboard = () => {
               <Link to={`/brief/${brief.id}`} key={brief.id}>
                 <Card className={`hover:shadow-md transition-shadow duration-200 ${viewMode === 'list' ? 'flex flex-row' : ''}`}>
                   <CardHeader className={viewMode === 'list' ? 'flex-1' : ''}>
-                    <CardTitle>{brief.title}</CardTitle>
+                    <CardTitle>{brief.brief_title}</CardTitle>
                     <CardDescription>
-                      Created on {format(new Date(brief.createdAt), 'MMMM d, yyyy')}
+                      Created on {format(new Date(brief.created_at), 'MMMM d, yyyy')}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className={viewMode === 'list' ? 'flex items-center' : ''}>
                     <p className="text-sm text-muted-foreground">
-                      Brand: {brief.brandName} | {brief.industry} | {brief.type}
+                      Brand: {brief.brand_name} | {brief.industry} | {brief.brief_type}
                     </p>
+                    {brief.generated_brief && (
+                      <div className="mt-2 text-xs text-green-600 dark:text-green-400">
+                        Brief generated ✓
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </Link>
@@ -85,7 +154,7 @@ const Dashboard = () => {
           </div>
         )}
         
-        {briefs.length > 0 && isFreeUsageAvailable() && (
+        {briefs.length > 0 && (
           <div className="mt-6 text-center">
             <Link to="/create">
               <Button className="bg-primary text-white">

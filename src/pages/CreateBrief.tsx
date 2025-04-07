@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SubscriptionGate from '@/components/SubscriptionGate';
-import { useBriefStore } from '@/store/briefStore';
-import { useUserUsageStore } from '@/store/userUsageStore';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useProfile } from '@/hooks/useProfile';
+import { useUserUsageStore } from '@/store/userUsageStore';
 
 const CreateBrief = () => {
   const [title, setTitle] = useState('');
@@ -19,37 +21,60 @@ const CreateBrief = () => {
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const { addBrief } = useBriefStore();
-  const { incrementBriefsCreated, isFreeUsageAvailable, briefsCreated, FREE_BRIEF_LIMIT } = useUserUsageStore();
+  const { user } = useAuth();
+  const { data: profile } = useProfile();
+  const { incrementBriefsCreated } = useUserUsageStore();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to create a brand brief.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
-      const briefId = addBrief({
-        title,
-        brandName,
-        industry,
-        type,
-        content
-      });
+      // Insert the brief into Supabase
+      const { data, error } = await supabase
+        .from('brand_briefs')
+        .insert([
+          {
+            user_id: user.id,
+            brief_title: title,
+            brand_name: brandName,
+            industry,
+            brief_type: type,
+            brief_content: content,
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
       
-      // Increment the brief counter
+      // Increment the brief counter in local store for UI updates
       incrementBriefsCreated();
       
       toast({
         title: "Brief Created",
-        description: "Your brand brief has been successfully created.",
+        description: "Your brand brief has been successfully created and is being processed.",
       });
       
-      navigate(`/brief/${briefId}`);
-    } catch (error) {
+      navigate('/dashboard');
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "There was an error creating your brief. Please try again.",
+        description: error.message || "There was an error creating your brief. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -57,16 +82,40 @@ const CreateBrief = () => {
     }
   };
 
+  // Calculate remaining quota
+  const getRemainingQuota = () => {
+    if (!profile) return null;
+    
+    // If monthly_quota is null or undefined, user has unlimited quota
+    if (profile.monthly_quota === null || profile.monthly_quota === undefined) {
+      return null;
+    }
+    
+    const used = profile.used_quota || 0;
+    const total = profile.monthly_quota;
+    const remaining = total - used;
+    
+    return {
+      used,
+      total,
+      remaining,
+      planName: profile.plan_name || 'Free'
+    };
+  };
+
+  const quotaInfo = getRemainingQuota();
+
   return (
     <SubscriptionGate allowFreeTier={true}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-3">Create Brand Brief</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isFreeUsageAvailable() ? 
-              `You have ${FREE_BRIEF_LIMIT - briefsCreated} free brand briefs remaining` : 
-              'Create your brand brief'}
-          </p>
+          {quotaInfo && (
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              You have {quotaInfo.remaining} {quotaInfo.planName === 'Free' ? 'free ' : ''}
+              briefs remaining
+            </p>
+          )}
         </div>
         
         <Card>

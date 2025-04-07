@@ -1,20 +1,68 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import SubscriptionGate from '@/components/SubscriptionGate';
 import { useParams, Link } from 'react-router-dom';
-import { useBriefStore } from '@/store/briefStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, Copy, Clock, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/context/AuthContext';
+import ReactMarkdown from 'react-markdown';
+
+type BrandBrief = {
+  id: string;
+  brief_title: string;
+  brand_name: string;
+  industry: string;
+  brief_type: string;
+  brief_content: string;
+  generated_brief: string | null;
+  created_at: string;
+};
 
 const BriefDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { getBrief } = useBriefStore();
-  const brief = getBrief(id || '');
+  const { user } = useAuth();
   const { toast } = useToast();
-  const [copying, setCopying] = React.useState(false);
+  const [copying, setCopying] = useState(false);
+
+  // Fetch brief from Supabase
+  const { data: brief, isLoading } = useQuery({
+    queryKey: ['brief', id],
+    queryFn: async (): Promise<BrandBrief | null> => {
+      if (!user || !id) return null;
+
+      const { data, error } = await supabase
+        .from('brand_briefs')
+        .select('*')
+        .eq('id', id)
+        .eq('user_id', user.id)
+        .single();
+
+      if (error) {
+        toast({
+          title: "Error fetching brief",
+          description: error.message,
+          variant: "destructive"
+        });
+        return null;
+      }
+
+      return data;
+    },
+    enabled: !!user && !!id,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-20">
+        <h2 className="text-2xl font-bold mb-4">Loading brief...</h2>
+      </div>
+    );
+  }
 
   if (!brief) {
     return (
@@ -30,7 +78,8 @@ const BriefDetail = () => {
   const copyBriefContent = async () => {
     try {
       setCopying(true);
-      await navigator.clipboard.writeText(brief.content);
+      const contentToCopy = brief.generated_brief || brief.brief_content;
+      await navigator.clipboard.writeText(contentToCopy);
       toast({
         title: "Copied to clipboard",
         description: "The brief content has been copied to your clipboard.",
@@ -47,10 +96,11 @@ const BriefDetail = () => {
   };
 
   const downloadBrief = () => {
+    const contentToDownload = brief.generated_brief || brief.brief_content;
     const element = document.createElement("a");
-    const file = new Blob([brief.content], {type: 'text/plain'});
+    const file = new Blob([contentToDownload], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
-    element.download = `${brief.title.replace(/\s+/g, '-').toLowerCase()}-brief.txt`;
+    element.download = `${brief.brief_title.replace(/\s+/g, '-').toLowerCase()}-brief.txt`;
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -67,10 +117,10 @@ const BriefDetail = () => {
         </div>
 
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">{brief.title}</h1>
+          <h1 className="text-3xl font-bold">{brief.brief_title}</h1>
           <div className="text-sm text-muted-foreground flex items-center">
             <Clock className="h-4 w-4 mr-1" />
-            {format(new Date(brief.createdAt), 'MMM d, yyyy')}
+            {format(new Date(brief.created_at), 'MMM d, yyyy')}
           </div>
         </div>
 
@@ -99,20 +149,29 @@ const BriefDetail = () => {
           <CardHeader className="pb-0">
             <div className="flex justify-between">
               <div>
-                <p className="text-sm font-medium">Brand: {brief.brandName}</p>
+                <p className="text-sm font-medium">Brand: {brief.brand_name}</p>
                 <p className="text-sm text-muted-foreground">{brief.industry}</p>
               </div>
               <div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                  {brief.type}
+                  {brief.brief_type}
                 </span>
               </div>
             </div>
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="prose max-w-none whitespace-pre-line">
-              {brief.content}
-            </div>
+            {brief.generated_brief ? (
+              <div className="prose max-w-none dark:prose-invert">
+                <ReactMarkdown>{brief.generated_brief}</ReactMarkdown>
+              </div>
+            ) : (
+              <div className="prose max-w-none whitespace-pre-line">
+                {brief.brief_content}
+                <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 rounded-md">
+                  <p>Your brief is being processed. Check back soon for the generated result.</p>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
