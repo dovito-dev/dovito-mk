@@ -74,10 +74,14 @@ const Auth = () => {
     setError(null);
     
     try {
+      const redirectTo = window.location.hostname === 'localhost' || window.location.hostname.includes('lovableproject.com')
+        ? `${window.location.origin}/dashboard`
+        : `https://mk.dovito.com/dashboard`;
+        
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: redirectTo,
         },
       });
       
