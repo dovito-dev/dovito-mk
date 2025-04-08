@@ -276,9 +276,16 @@ const ToolsPage = () => {
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold mb-3 gradient-text">AI Content Creation Tools</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-6">
           Create professional content for your brand with our suite of AI-powered tools
         </p>
+        
+        {/* Add prominent Get Started button */}
+        <Link to="/get-started">
+          <Button size="lg" className="bg-secondary text-white hover:bg-secondary/80 rounded-full px-8 shadow-md hover:shadow-lg">
+            Get Started
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -322,6 +329,19 @@ const ToolsPage = () => {
           gradient={false}
           className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
         />
+      </div>
+      
+      {/* Add call to action at the bottom */}
+      <div className="mt-16 text-center pb-10">
+        <h2 className="text-2xl font-semibold mb-4">Ready to supercharge your content creation?</h2>
+        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+          Start creating professional marketing content for your brand today with our AI-powered tools.
+        </p>
+        <Link to="/get-started">
+          <Button size="lg" className="gradient-bg">
+            Start Your Free Trial
+          </Button>
+        </Link>
       </div>
     </div>
   );

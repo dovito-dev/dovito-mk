@@ -1,11 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, Star } from 'lucide-react';
 import { useSubscription } from '@/context/SubscriptionContext';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 
 const GetStarted: React.FC = () => {
   const { isPaying } = useSubscription();
+  const { user } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   
   return (
@@ -13,7 +17,7 @@ const GetStarted: React.FC = () => {
       {isPaying ? (
         <OnboardingGuide />
       ) : (
-        <SubscriptionPortal selectedPlan={selectedPlan} setSelectedPlan={setSelectedPlan} />
+        <SubscriptionPortal selectedPlan={selectedPlan} setSelectedPlan={setSelectedPlan} user={user} />
       )}
     </div>
   );
@@ -87,8 +91,24 @@ const OnboardingGuide: React.FC = () => {
 const SubscriptionPortal: React.FC<{
   selectedPlan: string | null;
   setSelectedPlan: (plan: string | null) => void;
-}> = ({ selectedPlan, setSelectedPlan }) => {
+  user: any;
+}> = ({ selectedPlan, setSelectedPlan, user }) => {
   const plans = [
+    {
+      id: "free",
+      name: "Free Trial",
+      price: "$0",
+      period: "month",
+      features: [
+        "3 Brand Briefs per month",
+        "5 Email Templates",
+        "Basic Agent Voice",
+        "Limited Social Media Content",
+        "Community Support"
+      ],
+      highlight: false,
+      cta: "Start for Free"
+    },
     {
       id: "all",
       name: "All Access",
@@ -102,7 +122,9 @@ const SubscriptionPortal: React.FC<{
         "Priority Support",
         "Advanced Analytics"
       ],
-      popular: true
+      popular: true,
+      highlight: true,
+      cta: "Select Plan"
     },
     {
       id: "brand",
@@ -114,7 +136,9 @@ const SubscriptionPortal: React.FC<{
         "Brand Voice Definition",
         "Brand Style Guidelines",
         "Standard Support"
-      ]
+      ],
+      highlight: false,
+      cta: "Select Plan"
     },
     {
       id: "email",
@@ -126,7 +150,9 @@ const SubscriptionPortal: React.FC<{
         "Subject Line Generator",
         "A/B Testing Templates",
         "Standard Support"
-      ]
+      ],
+      highlight: false,
+      cta: "Select Plan"
     },
     {
       id: "social",
@@ -138,9 +164,22 @@ const SubscriptionPortal: React.FC<{
         "Hashtag Recommendations",
         "Content Calendar",
         "Standard Support"
-      ]
+      ],
+      highlight: false,
+      cta: "Select Plan"
     }
   ];
+
+  const handleContinue = () => {
+    if (selectedPlan === 'free') {
+      // Just navigate to dashboard for free plan
+      window.location.href = user ? '/dashboard' : '/auth?redirect=/dashboard';
+    } else {
+      // Continue to payment for paid plans
+      // This would be replaced with actual payment processing
+      alert('Continuing to payment for ' + selectedPlan + ' plan');
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -149,7 +188,7 @@ const SubscriptionPortal: React.FC<{
         <p className="text-muted-foreground">Select the plan that suits your marketing needs</p>
       </div>
       
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         {plans.map((plan) => (
           <Card 
             key={plan.id} 
@@ -157,7 +196,7 @@ const SubscriptionPortal: React.FC<{
               selectedPlan === plan.id 
                 ? "ring-2 ring-primary" 
                 : "hover:shadow-md"
-            } ${plan.popular ? "relative" : ""}`}
+            } ${plan.popular ? "relative" : ""} ${plan.highlight ? "border-primary/30" : ""}`}
           >
             {plan.popular && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-sm font-medium py-1 px-3 rounded-full flex items-center gap-1">
@@ -187,11 +226,11 @@ const SubscriptionPortal: React.FC<{
             
             <CardFooter>
               <Button
-                className="w-full"
+                className={`w-full ${plan.id === 'free' ? 'bg-green-600 hover:bg-green-700 text-white' : ''}`}
                 variant={selectedPlan === plan.id ? "default" : "outline"}
                 onClick={() => setSelectedPlan(plan.id)}
               >
-                {selectedPlan === plan.id ? "Selected" : "Select Plan"}
+                {selectedPlan === plan.id ? "Selected" : plan.cta}
               </Button>
             </CardFooter>
           </Card>
@@ -201,13 +240,16 @@ const SubscriptionPortal: React.FC<{
       <div className="mt-10 text-center">
         <Button 
           size="lg" 
-          className="gradient-bg"
+          className={selectedPlan === 'free' ? 'bg-green-600 hover:bg-green-700 text-white' : 'gradient-bg'}
           disabled={!selectedPlan}
+          onClick={handleContinue}
         >
-          Continue to Payment
+          {selectedPlan === 'free' ? 'Start for Free' : 'Continue to Payment'}
         </Button>
         <p className="mt-4 text-sm text-muted-foreground">
-          You'll be redirected to our secure payment processor.
+          {selectedPlan === 'free' 
+            ? 'No credit card required. Get started right away.' 
+            : 'You'll be redirected to our secure payment processor.'}
         </p>
       </div>
     </div>
