@@ -48,6 +48,42 @@ export type Database = {
         }
         Relationships: []
       }
+      connections: {
+        Row: {
+          access_token: string | null
+          connected_at: string | null
+          expires_at: string | null
+          id: string
+          provider: string
+          provider_user_id: string | null
+          refresh_token: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          connected_at?: string | null
+          expires_at?: string | null
+          id?: string
+          provider: string
+          provider_user_id?: string | null
+          refresh_token?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          connected_at?: string | null
+          expires_at?: string | null
+          id?: string
+          provider?: string
+          provider_user_id?: string | null
+          refresh_token?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           content: string | null
@@ -72,41 +108,86 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_methods: {
+        Row: {
+          card_type: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          is_default: boolean | null
+          last_four: string | null
+          provider: string
+          user_id: string
+        }
+        Insert: {
+          card_type?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          last_four?: string | null
+          provider: string
+          user_id: string
+        }
+        Update: {
+          card_type?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          last_four?: string | null
+          provider?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           email: string | null
+          email_verification_pending: boolean | null
           full_name: string | null
           id: string
+          last_verification_sent: string | null
           monthly_quota: number | null
           password: string | null
           plan_ends: string | null
           plan_name: string | null
           plan_starts: string | null
+          profile_image_settings: Json | null
+          profile_image_url: string | null
           used_quota: number | null
         }
         Insert: {
           avatar_url?: string | null
           email?: string | null
+          email_verification_pending?: boolean | null
           full_name?: string | null
           id: string
+          last_verification_sent?: string | null
           monthly_quota?: number | null
           password?: string | null
           plan_ends?: string | null
           plan_name?: string | null
           plan_starts?: string | null
+          profile_image_settings?: Json | null
+          profile_image_url?: string | null
           used_quota?: number | null
         }
         Update: {
           avatar_url?: string | null
           email?: string | null
+          email_verification_pending?: boolean | null
           full_name?: string | null
           id?: string
+          last_verification_sent?: string | null
           monthly_quota?: number | null
           password?: string | null
           plan_ends?: string | null
           plan_name?: string | null
           plan_starts?: string | null
+          profile_image_settings?: Json | null
+          profile_image_url?: string | null
           used_quota?: number | null
         }
         Relationships: []

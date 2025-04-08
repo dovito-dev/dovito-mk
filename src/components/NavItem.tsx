@@ -31,7 +31,9 @@ const NavItem: React.FC<NavItemProps> = ({
     if (collapsed && toggleSidebar) {
       e.preventDefault();
       toggleSidebar();
+      return true;
     }
+    return false;
   };
 
   const activeClasses = active 
@@ -43,7 +45,12 @@ const NavItem: React.FC<NavItemProps> = ({
       <Button
         variant="ghost"
         className={`w-full flex items-center mb-1 rounded-xl ${activeClasses} ${collapsed ? "justify-center px-2" : "justify-between"}`}
-        onClick={onToggleSubMenu}
+        onClick={(e) => {
+          const handled = handleClick(e);
+          if (!handled && onToggleSubMenu) {
+            onToggleSubMenu();
+          }
+        }}
       >
         <div className="flex items-center gap-2 justify-center">
           {icon}
