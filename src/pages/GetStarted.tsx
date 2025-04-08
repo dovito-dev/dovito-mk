@@ -249,7 +249,7 @@ const SubscriptionPortal: React.FC<{
         <p className="mt-4 text-sm text-muted-foreground">
           {selectedPlan === 'free' 
             ? 'No credit card required. Get started right away.' 
-            : 'You'll be redirected to our secure payment processor.'}
+            : "You'll be redirected to our secure payment processor."}
         </p>
       </div>
     </div>
