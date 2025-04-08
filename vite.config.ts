@@ -20,15 +20,12 @@ export default defineConfig(({ mode }) => ({
       name: 'copy-cname',
       closeBundle() {
         // Ensure the CNAME file is copied to the build output
-        fs.copyFileSync('CNAME', 'docs/CNAME');
+        if (fs.existsSync('CNAME')) {
+          fs.copyFileSync('CNAME', 'docs/CNAME');
+        }
         
         // Also ensure .nojekyll is in the build output
-        if (fs.existsSync('.nojekyll')) {
-          fs.copyFileSync('.nojekyll', 'docs/.nojekyll');
-        } else {
-          // Create it if it doesn't exist
-          fs.writeFileSync('docs/.nojekyll', '');
-        }
+        fs.writeFileSync('docs/.nojekyll', '');
 
         // Copy 404.html to ensure proper SPA handling
         if (fs.existsSync('public/404.html')) {
