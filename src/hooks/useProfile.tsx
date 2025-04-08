@@ -8,11 +8,15 @@ export type Profile = {
   email?: string;
   full_name?: string;
   avatar_url?: string;
+  profile_image_url?: string;
   monthly_quota?: number;
   used_quota?: number;
   plan_name?: string;
   plan_starts?: string;
   plan_ends?: string;
+  email_verification_pending?: boolean;
+  last_verification_sent?: string;
+  profile_image_settings?: Record<string, any>;
 };
 
 export const useProfile = () => {

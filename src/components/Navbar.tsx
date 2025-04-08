@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -44,7 +43,6 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
     location.pathname === '/generated-emails' || 
     location.pathname.startsWith('/email/');
 
-  // Function to get user initials from profile
   const getUserInitials = () => {
     if (!profile || !profile.full_name) return 'U';
     
@@ -86,7 +84,6 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
             alt="mk.dovito.com" 
             className={`h-8 transition-opacity duration-300 ${isDark ? 'opacity-100' : 'opacity-0'}`} 
           />
-          {/* Spacer div to maintain layout during transitions */}
           <div className="h-8 w-[104px]"></div>
         </Link>
         <div className="flex items-center">

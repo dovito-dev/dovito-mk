@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -102,7 +101,6 @@ const ProfileSettings: React.FC = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Parse full name into first and last name
   useEffect(() => {
     if (profile?.full_name) {
       const nameParts = profile.full_name.split(' ');
@@ -121,7 +119,6 @@ const ProfileSettings: React.FC = () => {
     setImageUrl(profile?.profile_image_url || profile?.avatar_url || null);
   }, [profile]);
 
-  // Function to get user initials
   const getUserInitials = () => {
     if (!firstName && !lastName && profile?.full_name) {
       const nameParts = profile.full_name.trim().split(' ');
@@ -139,7 +136,6 @@ const ProfileSettings: React.FC = () => {
     
     setSaving(true);
     try {
-      // If email changed, update auth email
       if (email !== profile?.email) {
         const { error: authError } = await supabase.auth.updateUser({
           email: email,
@@ -147,7 +143,6 @@ const ProfileSettings: React.FC = () => {
         
         if (authError) throw authError;
 
-        // Update verification pending flag in profile
         await supabase
           .from('profiles')
           .update({ 
@@ -157,7 +152,6 @@ const ProfileSettings: React.FC = () => {
           .eq('id', user.id);
       }
       
-      // Update profile information
       const fullName = `${firstName} ${lastName}`.trim();
       const { error } = await supabase
         .from('profiles')
@@ -197,7 +191,6 @@ const ProfileSettings: React.FC = () => {
       
       if (error) throw error;
       
-      // Update last verification sent timestamp
       await supabase
         .from('profiles')
         .update({ 
@@ -231,7 +224,6 @@ const ProfileSettings: React.FC = () => {
     
     setUploadingImage(true);
     try {
-      // Upload file to storage
       const fileName = `${user.id}/${Date.now()}-${selectedFile.name}`;
       const { error: uploadError, data } = await supabase.storage
         .from('profile_images')
@@ -242,12 +234,10 @@ const ProfileSettings: React.FC = () => {
         
       if (uploadError) throw uploadError;
       
-      // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from('profile_images')
         .getPublicUrl(fileName);
       
-      // Update profile with new image URL
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
@@ -695,11 +685,9 @@ const ConnectionSettings: React.FC = () => {
   };
 
   const handleConnect = async (accountId: string) => {
-    // Check if the connection already exists
     const existingConnection = connections.find(conn => conn.provider === accountId);
     
     if (existingConnection) {
-      // If it exists, disconnect it
       try {
         const { error } = await supabase
           .from('connections')
@@ -722,7 +710,6 @@ const ConnectionSettings: React.FC = () => {
         });
       }
     } else {
-      // This would normally start the OAuth flow for the selected provider
       toast({
         title: "Connect account",
         description: `This would start the OAuth flow for ${accountId}.`
