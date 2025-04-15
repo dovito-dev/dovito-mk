@@ -44,7 +44,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, profile, briefs, is
             <CardContent>
               {latestBrief.generated_brief ? (
                 <div className="prose dark:prose-invert max-h-40 overflow-hidden">
-                  <ReactMarkdown>{latestBrief.generated_brief.substring(0, 300)}...</ReactMarkdown>
+                  <ReactMarkdown>{latestBrief.generated_brief.substring(0, 300) + '...'}</ReactMarkdown>
                 </div>
               ) : (
                 <p className="text-muted-foreground italic">No content available yet</p>
