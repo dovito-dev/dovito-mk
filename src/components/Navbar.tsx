@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { CreditCard, LogOut, User, Link as LinkIcon } from 'lucide-react';
+import { CreditCard, LogOut, Settings, User, Link as LinkIcon } from 'lucide-react';
 
 type NavbarProps = {
   location: {
@@ -28,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
   const { plan } = useSubscription();
   const [isSigningOut, setIsSigningOut] = useState(false);
   const isDark = theme === 'dark';
+  const navigate = useNavigate();
   
   const isBrandBriefsActive = 
     location.pathname.startsWith('/brand-briefs') || 
@@ -75,98 +76,81 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
         </Link>
         <div className="flex items-center">
           <nav className="hidden md:flex items-center gap-6">
-            <Link 
-              to="/" 
-              className={`text-sm font-medium ${location.pathname === '/' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}
-            >
-              {user ? 'Dashboard' : 'Tools'}
-            </Link>
-            <Link 
-              to="/brand-briefs" 
-              className={`text-sm font-medium ${isBrandBriefsActive ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}
-            >
-              Brand Briefs
-            </Link>
-            <Link 
-              to="/email-copywriter" 
-              className={`text-sm font-medium ${isEmailsActive ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}
-            >
-              Email Copywriter
-            </Link>
-            <Link 
-              to="/agent-voice" 
-              className={`text-sm font-medium ${location.pathname === '/agent-voice' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}
-            >
-              Agent Voice
-            </Link>
-            <Link 
-              to="/social-media" 
-              className={`text-sm font-medium ${location.pathname === '/social-media' ? 'gradient-text' : 'text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-white'}`}
-            >
-              Social Media
-            </Link>
+            {[
+              { to: "/", label: user ? "Dashboard" : "Tools", active: location.pathname === "/" },
+              { to: "/brand-briefs", label: "Brand Briefs", active: location.pathname.startsWith('/brand-briefs') },
+              { to: "/email-copywriter", label: "Email Copywriter", active: location.pathname === '/email-copywriter' },
+              { to: "/agent-voice", label: "Agent Voice", active: location.pathname === '/agent-voice' },
+              { to: "/social-media", label: "Social Media", active: location.pathname === '/social-media' }
+            ].map(({ to, label, active }) => (
+              <Link
+                key={to}
+                to={to}
+                className={`text-sm font-medium ${
+                  active 
+                    ? 'text-blue-600 dark:text-blue-400' 
+                    : 'text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
           
           {user ? (
-            <div className="ml-4 flex items-center">
-              {plan === 'Free' && (
-                <Link to="/get-started">
-                  <Button size="sm" className="mr-4 bg-secondary text-white hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md">
-                    Upgrade
-                  </Button>
-                </Link>
-              )}
-              
+            <div className="ml-4 flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="h-9 w-9 cursor-pointer border-2 border-transparent hover:border-primary transition-colors">
-                    <AvatarImage src={profile?.avatar_url || profile?.profile_image_url} />
-                    <AvatarFallback className="bg-primary/20 text-primary">
-                      {profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
+                  <Button variant="ghost" className="rounded-full h-9 w-9 p-0">
+                    <Avatar>
+                      <AvatarImage src={profile?.avatar_url || profile?.profile_image_url} />
+                      <AvatarFallback className="bg-blue-100 text-blue-600">
+                        {profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 p-2">
-                  <div className="px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {profile?.full_name || profile?.email || user.email}
-                  </div>
-                  <div className="px-2 py-1 text-xs text-muted-foreground">
-                    {plan || 'Free'} Plan
+                <DropdownMenuContent align="end" className="w-56">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {profile?.full_name || profile?.email || user.email}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {plan || 'Free'} Plan
+                    </p>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/settings" className="flex items-center cursor-pointer">
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </Link>
+                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/settings?tab=billing" className="flex items-center cursor-pointer">
-                      <CreditCard className="mr-2 h-4 w-4" />
-                      <span>Billing</span>
-                    </Link>
+                  <DropdownMenuItem onClick={() => navigate('/settings?tab=billing')}>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Billing
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/settings?tab=connections" className="flex items-center cursor-pointer">
-                      <LinkIcon className="mr-2 h-4 w-4" />
-                      <span>Connections</span>
-                    </Link>
+                  <DropdownMenuItem onClick={() => navigate('/settings?tab=connections')}>
+                    <LinkIcon className="mr-2 h-4 w-4" />
+                    Connections
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings?tab=preferences')}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    Preferences
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
+                  <DropdownMenuItem 
                     onClick={handleSignOut}
                     disabled={isSigningOut}
-                    className="flex items-center cursor-pointer text-red-500 hover:text-red-600 focus:text-red-600"
+                    className="text-red-500 hover:text-red-600 focus:text-red-600"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>{isSigningOut ? 'Signing out...' : 'Sign out'}</span>
+                    {isSigningOut ? 'Signing out...' : 'Sign out'}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           ) : (
             <Link to="/get-started">
-              <Button size="sm" className="ml-4 bg-secondary text-white hover:bg-secondary/80 rounded-full px-6 shadow-sm hover:shadow-md">
+              <Button size="sm" className="ml-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6">
                 Get Started
               </Button>
             </Link>

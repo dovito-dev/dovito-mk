@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -10,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-indigo-500/90 to-purple-500/90 hover:from-indigo-500 hover:to-purple-500 text-white shadow-sm hover:shadow",
+        default: "bg-gradient-to-r from-blue-500/90 to-blue-600/90 hover:from-blue-500 hover:to-blue-600 text-white shadow-sm hover:shadow",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         outline:
@@ -18,9 +17,9 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-indigo-600 underline-offset-4 hover:underline",
-        "stripe-primary": "bg-gradient-to-r from-indigo-500/90 to-purple-500/90 hover:from-indigo-500 hover:to-purple-500 text-white shadow-sm hover:shadow",
-        "stripe-outline": "border border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-50/50 hover:border-indigo-300",
+        link: "text-blue-600 underline-offset-4 hover:underline",
+        "stripe-primary": "bg-gradient-to-r from-blue-500/90 to-blue-600/90 hover:from-blue-500 hover:to-blue-600 text-white shadow-sm hover:shadow",
+        "stripe-outline": "border border-blue-200 bg-white text-blue-600 hover:bg-blue-50/50 hover:border-blue-300",
       },
       size: {
         default: "h-10 px-4 py-2",
