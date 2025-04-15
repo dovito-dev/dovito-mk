@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/context/ThemeContext';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -14,8 +14,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { CreditCard, LogOut, User, Link as LinkIcon } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
 
 type NavbarProps = {
   location: {
@@ -25,10 +23,9 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ location }) => {
   const { theme } = useTheme();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { data: profile } = useProfile();
   const { plan } = useSubscription();
-  const { toast } = useToast();
   const [isSigningOut, setIsSigningOut] = useState(false);
   const isDark = theme === 'dark';
   
@@ -54,17 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
   const handleSignOut = async () => {
     setIsSigningOut(true);
     try {
-      await supabase.auth.signOut();
-      toast({
-        title: "Signed out successfully",
-        description: "You have been signed out of your account."
-      });
-    } catch (error) {
-      toast({
-        title: "Error signing out",
-        description: "There was a problem signing out. Please try again.",
-        variant: "destructive"
-      });
+      await signOut();
     } finally {
       setIsSigningOut(false);
     }
@@ -135,13 +122,13 @@ const Navbar: React.FC<NavbarProps> = ({ location }) => {
                   <Avatar className="h-9 w-9 cursor-pointer border-2 border-transparent hover:border-primary transition-colors">
                     <AvatarImage src={profile?.avatar_url || profile?.profile_image_url} />
                     <AvatarFallback className="bg-primary/20 text-primary">
-                      {getUserInitials()}
+                      {profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase() || 'U'}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 p-2">
                   <div className="px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {profile?.full_name || profile?.email}
+                    {profile?.full_name || profile?.email || user.email}
                   </div>
                   <div className="px-2 py-1 text-xs text-muted-foreground">
                     {plan || 'Free'} Plan
