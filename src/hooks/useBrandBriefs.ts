@@ -23,7 +23,7 @@ export const useBrandBriefs = () => {
     queryFn: async (): Promise<BrandBrief[]> => {
       if (!user) return [];
 
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('brand_briefs')
         .select('*')
         .eq('user_id', user.id)
@@ -48,7 +48,7 @@ export const useBrandBrief = (id: string | undefined) => {
     queryFn: async (): Promise<BrandBrief | null> => {
       if (!user || !id) return null;
 
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('brand_briefs')
         .select('*')
         .eq('id', id)
@@ -75,17 +75,19 @@ export const createBrandBrief = async (
     extra_instructions?: string;
   }
 ): Promise<BrandBrief | null> => {
-  const { data, error } = await (supabase as any)
+  // Prepare the brief data object
+  const briefData = {
+    user_id: userId,
+    brief_title: brief.brief_title || brief.company_name, // fallback for safety
+    company_name: brief.company_name,
+    company_url: brief.company_url,
+    extra_instructions: brief.extra_instructions || null,
+  };
+
+  // Insert the record
+  const { data, error } = await supabase
     .from('brand_briefs')
-    .insert([
-      {
-        user_id: userId,
-        brief_title: brief.brief_title || brief.company_name, // fallback for safety
-        company_name: brief.company_name,
-        company_url: brief.company_url,
-        extra_instructions: brief.extra_instructions || null,
-      }
-    ])
+    .insert(briefData)
     .select()
     .single();
 
