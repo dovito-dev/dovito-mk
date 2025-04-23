@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useBrandBrief } from '@/hooks/useBrandBriefs';
@@ -9,6 +8,7 @@ import { ArrowLeft, Clock, Building, Link as LinkIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import ReactMarkdown from 'react-markdown';
+import remarkBreaks from 'remark-breaks';
 
 const BriefDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -137,7 +137,11 @@ const BriefDetail = () => {
           </CardHeader>
           <CardContent>
             <div className="prose dark:prose-invert max-w-none">
-              <ReactMarkdown>{brief.generated_brief}</ReactMarkdown>
+              <ReactMarkdown 
+                remarkPlugins={[remarkBreaks]}
+              >
+                {brief.generated_brief}
+              </ReactMarkdown>
             </div>
           </CardContent>
         </Card>
