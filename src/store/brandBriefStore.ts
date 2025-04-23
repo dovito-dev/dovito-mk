@@ -4,11 +4,15 @@ import { persist } from 'zustand/middleware';
 
 export interface BrandBrief {
   id: string;
-  companyName: string;
-  website: string;
-  otherLinks?: string;
+  brand_name: string;
+  company_name: string;
+  company_url: string | null;
+  extra_instructions?: string | null;
   status: 'pending' | 'completed';
-  createdAt: string;
+  created_at: string;
+  updated_at?: string | null;
+  generated_brief?: string | null;
+  user_id: string;
   briefData?: {
     targetAudience?: string;
     brandVoice?: string;
@@ -17,12 +21,11 @@ export interface BrandBrief {
     competitiveAnalysis?: string;
     brandPositioning?: string;
   };
-  // Note: we're not adding briefTitle here since it doesn't exist in the database
 }
 
 interface BrandBriefState {
   briefs: BrandBrief[];
-  addBrief: (companyName: string, website: string, otherLinks?: string) => string;
+  addBrief: (brandName: string, companyUrl: string, extraInstructions?: string) => string;
   updateBrief: (id: string, data: Partial<BrandBrief>) => void;
   getBrief: (id: string) => BrandBrief | undefined;
 }
@@ -31,15 +34,17 @@ export const useBrandBriefStore = create<BrandBriefState>()(
   persist(
     (set, get) => ({
       briefs: [],
-      addBrief: (companyName, website, otherLinks = '') => {
+      addBrief: (brandName, companyUrl, extraInstructions = '') => {
         const id = Date.now().toString();
         const newBrief: BrandBrief = {
           id,
-          companyName,
-          website,
-          otherLinks,
+          brand_name: brandName,
+          company_name: brandName,
+          company_url: companyUrl,
+          extra_instructions: extraInstructions,
           status: 'pending',
-          createdAt: new Date().toISOString(),
+          created_at: new Date().toISOString(),
+          user_id: '', // This will be set by the backend
         };
         
         set((state) => ({

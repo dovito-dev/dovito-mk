@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SubscriptionGate from '@/components/SubscriptionGate';
@@ -65,13 +64,11 @@ const CreateBrief = () => {
     setIsSubmitting(true);
 
     try {
-      // We need to update this function call to match our new signature
-      // and not pass briefTitle as it doesn't exist in the database
+      // Create brand brief with the fields that match the database schema
       await createBrandBrief(user.id, {
         brand_name: companyName.trim(),
         company_url: companyUrl.trim(),
         extra_instructions: extraInstructions,
-        // Note: briefTitle is not passed as it's not in the database schema
       });
 
       incrementBriefsCreated();

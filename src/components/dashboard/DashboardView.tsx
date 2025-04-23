@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Clock, Mail, Mic, Share2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { BrandBrief } from '@/hooks/useBrandBriefs';
 
 interface DashboardViewProps {
   user: any;
   profile: any;
-  briefs: any[];
+  briefs: BrandBrief[];
   isLoading: boolean;
 }
 

@@ -15,9 +15,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ReactMarkdown from 'react-markdown';
+import { BrandBrief } from '@/hooks/useBrandBriefs';
 
 interface ContentBrowserProps {
-  briefs: any[];
+  briefs: BrandBrief[];
   isLoading: boolean;
 }
 
@@ -30,18 +31,18 @@ const ContentBrowser: React.FC<ContentBrowserProps> = ({ briefs, isLoading }) =>
   const filteredBriefs = briefs
     .filter(brief => {
       // Search filter
-      if (search && !brief.brief_title.toLowerCase().includes(search.toLowerCase()) && 
-          !brief.brand_name.toLowerCase().includes(search.toLowerCase())) {
+      if (search && !brief.brand_name.toLowerCase().includes(search.toLowerCase()) && 
+          !brief.company_name.toLowerCase().includes(search.toLowerCase())) {
         return false;
       }
       
-      // Type filter
-      if (filter !== 'all' && brief.brief_type !== filter) {
+      // Type filter - we don't have a brief_type field, so this filtering won't work currently
+      if (filter !== 'all') {
         return false;
       }
       
       // Time range filter
-      if (timeRange !== 'all') {
+      if (timeRange !== 'all' && brief.created_at) {
         const createdDate = new Date(brief.created_at);
         const now = new Date();
         
@@ -127,12 +128,12 @@ const ContentBrowser: React.FC<ContentBrowserProps> = ({ briefs, isLoading }) =>
                   <div className="border rounded-lg p-4 hover:bg-accent/50 transition-colors">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium">{brief.brief_title}</h3>
+                        <h3 className="font-medium">{brief.company_name || brief.brand_name}</h3>
                         <p className="text-sm text-muted-foreground">{brief.brand_name}</p>
                       </div>
                       <div className="text-sm text-right">
                         <span className="inline-block px-2 py-1 rounded-full bg-primary/20 text-primary text-xs">
-                          {brief.brief_type || 'Brand Brief'}
+                          Brand Brief
                         </span>
                         <p className="mt-1 text-muted-foreground">
                           {brief.created_at ? format(new Date(brief.created_at), 'MMM d, yyyy') : 'Unknown date'}

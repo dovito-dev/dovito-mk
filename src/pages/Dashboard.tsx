@@ -11,7 +11,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { LayoutList, LayoutGrid, PlusCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
-import { useBrandBriefs, BrandBrief } from '@/hooks/useBrandBriefs';
+import { useBrandBriefs } from '@/hooks/useBrandBriefs';
 import ReactMarkdown from 'react-markdown';
 
 const Dashboard = () => {

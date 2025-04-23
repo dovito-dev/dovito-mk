@@ -13,7 +13,6 @@ export type BrandBrief = {
   created_at: string | null;
   updated_at: string | null;
   user_id: string;
-  brief_title?: string | null;
 };
 
 export const useBrandBriefs = () => {
@@ -24,8 +23,6 @@ export const useBrandBriefs = () => {
     queryFn: async (): Promise<BrandBrief[]> => {
       if (!user) return [];
 
-      // Using the any type to bypass TypeScript's strict checking on table names
-      // This is necessary because the generated types don't include brand_briefs yet
       const { data, error } = await (supabase as any)
         .from('brand_briefs')
         .select('*')
@@ -51,7 +48,6 @@ export const useBrandBrief = (id: string | undefined) => {
     queryFn: async (): Promise<BrandBrief | null> => {
       if (!user || !id) return null;
 
-      // Using the any type to bypass TypeScript's strict checking on table names
       const { data, error } = await (supabase as any)
         .from('brand_briefs')
         .select('*')
@@ -73,23 +69,20 @@ export const useBrandBrief = (id: string | undefined) => {
 export const createBrandBrief = async (
   userId: string,
   brief: {
-    brief_title?: string;
     brand_name: string;
     company_url: string;
     extra_instructions?: string;
   }
 ): Promise<BrandBrief | null> => {
-  // We'll update the insert operation to not include brief_title directly since it's not in the table
   const { data, error } = await (supabase as any)
     .from('brand_briefs')
     .insert([
       {
         user_id: userId,
-        company_name: brief.brand_name, // Map to the correct column name in the database
-        brand_name: brief.brand_name,   // Also set brand_name as it exists in the schema
+        company_name: brief.brand_name, // Map to the correct column name
+        brand_name: brief.brand_name,   // Also set brand_name
         company_url: brief.company_url,
         extra_instructions: brief.extra_instructions || null,
-        // brief_title is not included in the insert as it doesn't exist in the table
       }
     ])
     .select()
