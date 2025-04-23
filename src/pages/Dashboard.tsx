@@ -129,7 +129,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className={viewMode === 'list' ? 'flex items-center' : ''}>
                       <p className="text-sm text-muted-foreground">
-                        Brand: {brief.brand_name} | {brief.industry} | {brief.brief_type}
+                        Brand: {brief.brand_name} | {brief.company_url || 'No URL'}
                       </p>
                       {brief.generated_brief && (
                         <div className="mt-2 prose dark:prose-invert prose-sm max-h-20 overflow-hidden">

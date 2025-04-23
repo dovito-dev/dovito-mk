@@ -5,7 +5,7 @@ import { useBrandBrief } from '@/hooks/useBrandBriefs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Clock, Building, Tag } from 'lucide-react';
+import { ArrowLeft, Clock, Building, Link as LinkIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import ReactMarkdown from 'react-markdown';
@@ -85,10 +85,15 @@ const BriefDetail = () => {
           <Building className="h-4 w-4 mr-1" />
           <span>{brief.brand_name}</span>
         </div>
-        {brief.industry && (
+        {brief.company_url && (
           <div className="flex items-center">
-            <Tag className="h-4 w-4 mr-1" />
-            <span>{brief.industry}</span>
+            <LinkIcon className="h-4 w-4 mr-1" />
+            <a href={brief.company_url.startsWith('http') ? brief.company_url : `https://${brief.company_url}`} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="hover:underline">
+              {brief.company_url}
+            </a>
           </div>
         )}
         {brief.created_at && (
