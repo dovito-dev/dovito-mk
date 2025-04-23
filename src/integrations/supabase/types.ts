@@ -11,33 +11,33 @@ export type Database = {
     Tables: {
       brand_briefs: {
         Row: {
-          brand_name: string
-          brief_content: string | null
           brief_title: string
+          company_name: string
           company_url: string | null
           created_at: string | null
+          extra_instructions: string | null
           generated_brief: string | null
           id: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
-          brand_name: string
-          brief_content?: string | null
           brief_title: string
+          company_name: string
           company_url?: string | null
           created_at?: string | null
+          extra_instructions?: string | null
           generated_brief?: string | null
           id?: string
           updated_at?: string | null
           user_id: string
         }
         Update: {
-          brand_name?: string
-          brief_content?: string | null
           brief_title?: string
+          company_name?: string
           company_url?: string | null
           created_at?: string | null
+          extra_instructions?: string | null
           generated_brief?: string | null
           id?: string
           updated_at?: string | null

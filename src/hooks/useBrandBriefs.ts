@@ -7,8 +7,7 @@ export type BrandBrief = {
   id: string;
   brief_title: string;
   brand_name: string;
-  industry: string | null;
-  brief_type: string | null;
+  company_url: string | null;
   brief_content: string | null;
   generated_brief: string | null;
   created_at: string | null;
@@ -75,8 +74,7 @@ export const createBrandBrief = async (
   brief: {
     brief_title: string;
     brand_name: string;
-    industry: string;
-    brief_type: string;
+    company_url: string;
     brief_content: string;
   }
 ): Promise<BrandBrief | null> => {
@@ -87,8 +85,7 @@ export const createBrandBrief = async (
         user_id: userId,
         brief_title: brief.brief_title,
         brand_name: brief.brand_name,
-        industry: brief.industry,
-        brief_type: brief.brief_type,
+        company_url: brief.company_url,
         brief_content: brief.brief_content,
       }
     ])
