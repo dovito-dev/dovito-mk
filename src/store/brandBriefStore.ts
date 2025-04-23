@@ -17,6 +17,7 @@ export interface BrandBrief {
     competitiveAnalysis?: string;
     brandPositioning?: string;
   };
+  // Note: we're not adding briefTitle here since it doesn't exist in the database
 }
 
 interface BrandBriefState {
