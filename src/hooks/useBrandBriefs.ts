@@ -75,26 +75,36 @@ export const createBrandBrief = async (
     extra_instructions?: string;
   }
 ): Promise<BrandBrief | null> => {
-  // Prepare the brief data object
-  const briefData = {
-    user_id: userId,
-    brief_title: brief.brief_title || brief.company_name, // fallback for safety
-    company_name: brief.company_name,
-    company_url: brief.company_url,
-    extra_instructions: brief.extra_instructions || null,
-  };
+  try {
+    console.log('Creating brief with data:', { userId, brief });
+    
+    // Prepare the brief data object
+    const briefData = {
+      user_id: userId,
+      brief_title: brief.brief_title || brief.company_name,
+      company_name: brief.company_name,
+      company_url: brief.company_url,
+      extra_instructions: brief.extra_instructions || null,
+    };
 
-  // Insert the record - explicitly use the public schema
-  const { data, error } = await supabase
-    .from('brand_briefs')
-    .insert(briefData)
-    .select()
-    .single();
+    console.log('Prepared brief data:', briefData);
 
-  if (error) {
-    console.error('Error creating brief:', error);
+    // Insert into brand_briefs table without specifying schema
+    const { data, error } = await supabase
+      .from('brand_briefs')
+      .insert(briefData)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase insertion error:', error);
+      throw error;
+    }
+
+    console.log('Successfully created brief:', data);
+    return data;
+  } catch (error) {
+    console.error('Error in createBrandBrief:', error);
     throw error;
   }
-
-  return data;
 };
