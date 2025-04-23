@@ -78,12 +78,12 @@ const BriefDetail = () => {
         </Link>
       </div>
       
-      <h1 className="text-3xl font-bold mb-2">{brief.company_name || brief.brand_name}</h1>
+      <h1 className="text-3xl font-bold mb-2">{brief.company_name || brief.brief_title}</h1>
       
       <div className="flex flex-wrap gap-4 mb-6 text-sm text-muted-foreground">
         <div className="flex items-center">
           <Building className="h-4 w-4 mr-1" />
-          <span>{brief.brand_name}</span>
+          <span>{brief.brief_title}</span>
         </div>
         {brief.company_url && (
           <div className="flex items-center">

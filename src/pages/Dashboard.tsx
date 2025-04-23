@@ -122,14 +122,14 @@ const Dashboard = () => {
                 <Link to={`/brief/${brief.id}`} key={brief.id}>
                   <Card className={`hover:shadow-md transition-shadow duration-200 ${viewMode === 'list' ? 'flex flex-row' : ''}`}>
                     <CardHeader className={viewMode === 'list' ? 'flex-1' : ''}>
-                      <CardTitle>{brief.company_name || brief.brand_name}</CardTitle>
+                      <CardTitle>{brief.company_name || brief.brief_title}</CardTitle>
                       <CardDescription>
                         Created on {brief.created_at ? format(new Date(brief.created_at), 'MMMM d, yyyy') : 'Unknown date'}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className={viewMode === 'list' ? 'flex items-center' : ''}>
                       <p className="text-sm text-muted-foreground">
-                        Brand: {brief.brand_name} | {brief.company_url || 'No URL'}
+                        Brief: {brief.brief_title} | {brief.company_url || 'No URL'}
                       </p>
                       {brief.generated_brief && (
                         <div className="mt-2 prose dark:prose-invert prose-sm max-h-20 overflow-hidden">

@@ -31,7 +31,7 @@ const ContentBrowser: React.FC<ContentBrowserProps> = ({ briefs, isLoading }) =>
   const filteredBriefs = briefs
     .filter(brief => {
       // Search filter
-      if (search && !brief.brand_name.toLowerCase().includes(search.toLowerCase()) && 
+      if (search && !brief.brief_title.toLowerCase().includes(search.toLowerCase()) && 
           !brief.company_name.toLowerCase().includes(search.toLowerCase())) {
         return false;
       }
@@ -128,8 +128,8 @@ const ContentBrowser: React.FC<ContentBrowserProps> = ({ briefs, isLoading }) =>
                   <div className="border rounded-lg p-4 hover:bg-accent/50 transition-colors">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium">{brief.company_name || brief.brand_name}</h3>
-                        <p className="text-sm text-muted-foreground">{brief.brand_name}</p>
+                        <h3 className="font-medium">{brief.company_name}</h3>
+                        <p className="text-sm text-muted-foreground">{brief.brief_title}</p>
                       </div>
                       <div className="text-sm text-right">
                         <span className="inline-block px-2 py-1 rounded-full bg-primary/20 text-primary text-xs">
