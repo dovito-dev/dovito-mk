@@ -84,7 +84,7 @@ export const createBrandBrief = async (
     extra_instructions: brief.extra_instructions || null,
   };
 
-  // Insert the record
+  // Insert the record - explicitly use the public schema
   const { data, error } = await supabase
     .from('brand_briefs')
     .insert(briefData)
