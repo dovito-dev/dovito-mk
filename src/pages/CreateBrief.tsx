@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SubscriptionGate from '@/components/SubscriptionGate';
@@ -14,9 +15,9 @@ import { createBrandBrief } from '@/hooks/useBrandBriefs';
 import { Link } from 'react-router-dom';
 
 const CreateBrief = () => {
+  const [briefTitle, setBriefTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [companyUrl, setCompanyUrl] = useState('');
-  const [briefTitle, setBriefTitle] = useState('');
   const [extraInstructions, setExtraInstructions] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -64,9 +65,10 @@ const CreateBrief = () => {
     setIsSubmitting(true);
 
     try {
-      // Create brand brief with the fields that match the database schema
+      // Insert into Supabase with new column names
       await createBrandBrief(user.id, {
-        brand_name: companyName.trim(),
+        brief_title: briefTitle.trim() || companyName.trim(),
+        company_name: companyName.trim(),
         company_url: companyUrl.trim(),
         extra_instructions: extraInstructions,
       });

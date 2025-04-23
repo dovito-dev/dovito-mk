@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export type BrandBrief = {
   id: string;
-  brand_name: string;
+  brief_title: string;
   company_name: string;
   company_url: string | null;
   extra_instructions: string | null;
@@ -69,7 +69,8 @@ export const useBrandBrief = (id: string | undefined) => {
 export const createBrandBrief = async (
   userId: string,
   brief: {
-    brand_name: string;
+    brief_title?: string;
+    company_name: string;
     company_url: string;
     extra_instructions?: string;
   }
@@ -79,8 +80,8 @@ export const createBrandBrief = async (
     .insert([
       {
         user_id: userId,
-        company_name: brief.brand_name, // Map to the correct column name
-        brand_name: brief.brand_name,   // Also set brand_name
+        brief_title: brief.brief_title || brief.company_name, // fallback for safety
+        company_name: brief.company_name,
         company_url: brief.company_url,
         extra_instructions: brief.extra_instructions || null,
       }

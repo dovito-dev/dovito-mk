@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 
 export interface BrandBrief {
   id: string;
-  brand_name: string;
+  brief_title: string;
   company_name: string;
   company_url: string | null;
   extra_instructions?: string | null;
@@ -25,7 +25,7 @@ export interface BrandBrief {
 
 interface BrandBriefState {
   briefs: BrandBrief[];
-  addBrief: (brandName: string, companyUrl: string, extraInstructions?: string) => string;
+  addBrief: (briefTitle: string, companyName: string, companyUrl: string, extraInstructions?: string) => string;
   updateBrief: (id: string, data: Partial<BrandBrief>) => void;
   getBrief: (id: string) => BrandBrief | undefined;
 }
@@ -34,12 +34,12 @@ export const useBrandBriefStore = create<BrandBriefState>()(
   persist(
     (set, get) => ({
       briefs: [],
-      addBrief: (brandName, companyUrl, extraInstructions = '') => {
+      addBrief: (briefTitle, companyName, companyUrl, extraInstructions = '') => {
         const id = Date.now().toString();
         const newBrief: BrandBrief = {
           id,
-          brand_name: brandName,
-          company_name: brandName,
+          brief_title: briefTitle,
+          company_name: companyName,
           company_url: companyUrl,
           extra_instructions: extraInstructions,
           status: 'pending',
