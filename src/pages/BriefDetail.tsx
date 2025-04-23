@@ -78,7 +78,7 @@ const BriefDetail = () => {
         </Link>
       </div>
       
-      <h1 className="text-3xl font-bold mb-2">{brief.brief_title}</h1>
+      <h1 className="text-3xl font-bold mb-2">{brief.company_name || brief.brand_name}</h1>
       
       <div className="flex flex-wrap gap-4 mb-6 text-sm text-muted-foreground">
         <div className="flex items-center">
@@ -113,7 +113,7 @@ const BriefDetail = () => {
         </CardHeader>
         <CardContent>
           <div className="whitespace-pre-wrap">
-            {brief.brief_content}
+            {brief.extra_instructions || "No additional instructions provided."}
           </div>
         </CardContent>
       </Card>

@@ -122,7 +122,7 @@ const Dashboard = () => {
                 <Link to={`/brief/${brief.id}`} key={brief.id}>
                   <Card className={`hover:shadow-md transition-shadow duration-200 ${viewMode === 'list' ? 'flex flex-row' : ''}`}>
                     <CardHeader className={viewMode === 'list' ? 'flex-1' : ''}>
-                      <CardTitle>{brief.brief_title}</CardTitle>
+                      <CardTitle>{brief.company_name || brief.brand_name}</CardTitle>
                       <CardDescription>
                         Created on {brief.created_at ? format(new Date(brief.created_at), 'MMMM d, yyyy') : 'Unknown date'}
                       </CardDescription>

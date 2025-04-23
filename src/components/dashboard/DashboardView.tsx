@@ -38,7 +38,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, profile, briefs, is
           <h2 className="text-xl font-semibold mb-4">Your Latest Brief</h2>
           <Card>
             <CardHeader>
-              <CardTitle>{latestBrief.brief_title}</CardTitle>
+              <CardTitle>{latestBrief.company_name || latestBrief.brand_name}</CardTitle>
               <CardDescription>Brand: {latestBrief.brand_name}</CardDescription>
             </CardHeader>
             <CardContent>
