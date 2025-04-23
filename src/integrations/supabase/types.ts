@@ -14,11 +14,10 @@ export type Database = {
           brand_name: string
           brief_content: string | null
           brief_title: string
-          brief_type: string | null
+          company_url: string | null
           created_at: string | null
           generated_brief: string | null
           id: string
-          industry: string | null
           updated_at: string | null
           user_id: string
         }
@@ -26,11 +25,10 @@ export type Database = {
           brand_name: string
           brief_content?: string | null
           brief_title: string
-          brief_type?: string | null
+          company_url?: string | null
           created_at?: string | null
           generated_brief?: string | null
           id?: string
-          industry?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -38,11 +36,10 @@ export type Database = {
           brand_name?: string
           brief_content?: string | null
           brief_title?: string
-          brief_type?: string | null
+          company_url?: string | null
           created_at?: string | null
           generated_brief?: string | null
           id?: string
-          industry?: string | null
           updated_at?: string | null
           user_id?: string
         }
@@ -105,6 +102,104 @@ export type Database = {
           id?: string
           title?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      email_copywriter: {
+        Row: {
+          brief_id: string | null
+          content: string | null
+          created_at: string | null
+          generated_content: string | null
+          id: string
+          purpose: string | null
+          recipient_email: string | null
+          recipient_name: string | null
+          sample_email: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          brief_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          generated_content?: string | null
+          id?: string
+          purpose?: string | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          sample_email?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          brief_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          generated_content?: string | null
+          id?: string
+          purpose?: string | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          sample_email?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_copywriter_brief_id_fkey"
+            columns: ["brief_id"]
+            isOneToOne: false
+            referencedRelation: "brand_briefs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      internal_information: {
+        Row: {
+          additional_info: string | null
+          brand_voice: string | null
+          company_name: string
+          company_url: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          industry: string | null
+          target_audience: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          additional_info?: string | null
+          brand_voice?: string | null
+          company_name: string
+          company_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          industry?: string | null
+          target_audience?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          additional_info?: string | null
+          brand_voice?: string | null
+          company_name?: string
+          company_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          industry?: string | null
+          target_audience?: string | null
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -213,6 +308,59 @@ export type Database = {
         }
         Relationships: []
       }
+      social_media_content: {
+        Row: {
+          brief_id: string | null
+          content: string | null
+          created_at: string | null
+          generated_content: string | null
+          generated_idea: string | null
+          id: string
+          idea_prompt: string | null
+          is_auto_generated: boolean | null
+          platforms: string[] | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          brief_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          generated_content?: string | null
+          generated_idea?: string | null
+          id?: string
+          idea_prompt?: string | null
+          is_auto_generated?: boolean | null
+          platforms?: string[] | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          brief_id?: string | null
+          content?: string | null
+          created_at?: string | null
+          generated_content?: string | null
+          generated_idea?: string | null
+          id?: string
+          idea_prompt?: string | null
+          is_auto_generated?: boolean | null
+          platforms?: string[] | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_media_content_brief_id_fkey"
+            columns: ["brief_id"]
+            isOneToOne: false
+            referencedRelation: "brand_briefs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -278,7 +426,7 @@ export type Database = {
         Returns: string
       }
       urlencode: {
-        Args: { string: string } | { string: string } | { data: Json }
+        Args: { data: Json } | { string: string } | { string: string }
         Returns: string
       }
     }
