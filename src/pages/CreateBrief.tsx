@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SubscriptionGate from '@/components/SubscriptionGate';
@@ -65,13 +64,11 @@ const CreateBrief = () => {
     setIsSubmitting(true);
 
     try {
-      // Use briefTitle, fallback to companyName if empty
-      const titleToUse = briefTitle.trim() || companyName.trim();
+      // Updated to match the new function signature
       await createBrandBrief(user.id, {
-        brief_title: titleToUse,
         brand_name: companyName.trim(),
         company_url: companyUrl.trim(),
-        brief_content: extraInstructions,
+        extra_instructions: extraInstructions,
       });
 
       incrementBriefsCreated();

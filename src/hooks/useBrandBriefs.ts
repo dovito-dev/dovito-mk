@@ -5,10 +5,10 @@ import { useAuth } from '@/context/AuthContext';
 
 export type BrandBrief = {
   id: string;
-  brief_title: string;
   brand_name: string;
+  company_name: string;
   company_url: string | null;
-  brief_content: string | null;
+  extra_instructions: string | null;
   generated_brief: string | null;
   created_at: string | null;
   updated_at: string | null;
@@ -72,10 +72,10 @@ export const useBrandBrief = (id: string | undefined) => {
 export const createBrandBrief = async (
   userId: string,
   brief: {
-    brief_title: string;
+    brief_title?: string;
     brand_name: string;
     company_url: string;
-    brief_content: string;
+    extra_instructions?: string;
   }
 ): Promise<BrandBrief | null> => {
   const { data, error } = await (supabase as any)
@@ -83,10 +83,10 @@ export const createBrandBrief = async (
     .insert([
       {
         user_id: userId,
-        brief_title: brief.brief_title,
-        brand_name: brief.brand_name,
+        company_name: brief.brand_name, // Map to the correct column name in the database
+        brand_name: brief.brand_name,   // Also set brand_name as it exists in the schema
         company_url: brief.company_url,
-        brief_content: brief.brief_content,
+        extra_instructions: brief.extra_instructions || null,
       }
     ])
     .select()
